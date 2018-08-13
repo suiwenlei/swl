@@ -1,0 +1,4 @@
+2018-04-03 23:38:15  INFO DruidDataSource:669 - {dataSource-1} inited
+2018-04-03 23:38:16 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20000} enter cache
+2018-04-03 23:38:18  INFO AdminTask:16 - ......SOCKET...IS.....WORKING 
+2018-04-03 23:38:18  INFO SocketListener:38 - 服务已经启动，开始在端口[8888]监听,等待TCP客户端连接....

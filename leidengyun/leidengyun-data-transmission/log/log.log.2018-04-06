@@ -1,0 +1,22 @@
+2018-04-06 09:20:41  INFO DruidDataSource:669 - {dataSource-1} inited
+2018-04-06 09:20:42 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20000} enter cache
+2018-04-06 09:20:44  INFO AdminTask:16 - ......SOCKET...IS.....WORKING 
+2018-04-06 09:20:44  INFO SocketListener:38 - 服务已经启动，开始在端口[8888]监听,等待TCP客户端连接....
+2018-04-06 09:22:35  INFO DruidDataSource:669 - {dataSource-1} inited
+2018-04-06 09:22:36 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20000} enter cache
+2018-04-06 09:22:37  INFO AdminTask:16 - ......SOCKET...IS.....WORKING 
+2018-04-06 09:22:37  INFO SocketListener:38 - 服务已经启动，开始在端口[8888]监听,等待TCP客户端连接....
+2018-04-06 09:23:15 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20001} enter cache
+2018-04-06 09:23:15 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20002} enter cache
+2018-04-06 09:23:31 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20004} enter cache
+2018-04-06 09:23:31 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20005} enter cache
+2018-04-06 09:23:31 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20006} enter cache
+2018-04-06 20:53:38  INFO DruidDataSource:669 - {dataSource-1} inited
+2018-04-06 20:53:38 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20000} enter cache
+2018-04-06 20:53:40  INFO AdminTask:16 - ......SOCKET...IS.....WORKING 
+2018-04-06 20:53:40  INFO SocketListener:38 - 服务已经启动，开始在端口[8888]监听,等待TCP客户端连接....
+2018-04-06 20:54:00 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20001} enter cache
+2018-04-06 20:54:00 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20002} enter cache
+2018-04-06 20:54:01 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20004} enter cache
+2018-04-06 20:54:01 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20005} enter cache
+2018-04-06 20:54:01 DEBUG PreparedStatementPool:123 - {conn-10005, pstmt-20006} enter cache

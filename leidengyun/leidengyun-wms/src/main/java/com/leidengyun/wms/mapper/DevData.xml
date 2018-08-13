@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leidengyun.wms.dao.DevDataDao">
+	<select id="get" parameterType="java.lang.Integer" resultType="DevData">
+		select GUID ,DEVICE_ID devId,DEVICE_CODE devCode,DEVICE_CREATE_DATE devTime,LOG_VOLT loVolt,DEVICE_DATA devData,LENGTH 
+		from device_sync a
+		WHERE a.DEVICE_ID = #{devId}
+	</select>
+
+	
+	<select id="findPaginationByDevId" parameterType="Map"
+		resultType="DevData">
+		SELECT GUID ,DEVICE_ID devId,DEVICE_CODE devCode,DEVICE_CREATE_DATE devTime,LOG_VOLT loVolt,DEVICE_DATA devData,LENGTH
+		FROM device_sync a
+		WHERE 1 = 1
+		<if test="devId != null and devId != '' ">
+			AND a.DEVICE_ID = #{devId}
+		</if>
+		<if test="qsrq != null and qsrq != '' ">
+			AND DATE_FORMAT(a.DEVICE_CREATE_DATE,'%Y-%m-%d') &gt;=#{qsrq} 	
+		</if>
+		<if test="zzrq != null and zzrq != '' ">
+			AND DATE_FORMAT(a.DEVICE_CREATE_DATE,'%Y-%m-%d') &lt;=#{zzrq} 	
+		</if>
+		
+		ORDER BY a.DEVICE_CREATE_DATE DESC
+	</select>
+	
+	<select id="findDevList" parameterType="Map"
+		resultType="DevData">
+		SELECT GUID ,DEVICE_ID devId,DEVICE_CODE devCode,DEVICE_CREATE_DATE devTime,LOG_VOLT loVolt,DEVICE_DATA devData,LENGTH
+		FROM device_sync a
+		WHERE 1 = 1
+		<if test="devId != null ">
+			AND a.DEVICE_ID = #{devId}
+		</if>
+		<if test="qsrq != null and qsrq != '' ">
+			AND DATE_FORMAT(a.DEVICE_CREATE_DATE,'%Y-%m-%d') &gt;=#{qsrq} 	
+		</if>
+		<if test="zzrq != null and zzrq != '' ">
+			AND DATE_FORMAT(a.DEVICE_CREATE_DATE,'%Y-%m-%d') &lt;=#{zzrq} 	
+		</if>
+		
+		ORDER BY a.DEVICE_CREATE_DATE DESC
+	</select>
+
+	<select id="findByDevId" parameterType="Map" resultType="DevData">
+		SELECT GUID,DEVICE_ID devId,DEVICE_CODE devCode,DEVICE_CREATE_DATE devTime,LOG_VOLT loVolt
+		FROM device_sync a
+		WHERE 1 = 1
+		AND a.DEVICE_ID = #{devId}
+	</select>
+
+	<delete id="deleteByIds" parameterType="map" statementType="PREPARED">
+		DELETE FROM device_sync 
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND guid in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	<delete id="deleteByUuid" parameterType="Map" statementType="PREPARED">
+		DELETE FROM device_sync 
+		WHERE 1 = 1
+		<if test="uuid != null">
+			AND guid = #{uuid}
+		</if>
+	</delete>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-data-transmission" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-mvc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-sso" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-sso/leidengyun-sso-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-static" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-wlwpt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/leidengyun-wms" charset="UTF-8" />
+  </component>
+</project>

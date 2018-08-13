@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leidengyun.sjptn.dao.DevDataAppDao">
+	<select id="get" parameterType="java.lang.Integer" resultType="DevDataApp">
+		select id,devID,loVolt,devTime,devTypeArray,devNameArray,devValueArray
+		from sys_device_data a
+		WHERE a.devId = #{devId}
+	</select>
+
+	<select id="findPaginationByDevId" parameterType="Map"
+		resultType="DevDataApp">
+		SELECT id,devID,loVolt,devTime,devTypeArray,devNameArray,devValueArray
+		FROM sys_device_data a
+		WHERE 1 = 1
+		<if test="devId != null and devId != '' ">
+			AND a.devId = #{devId}
+		</if>
+		<if test="qsrq != null and qsrq != '' ">
+            AND a.devTime &gt;=#{qsrq}
+		</if>
+		<if test="zzrq != null and zzrq != '' ">
+		    AND a.devTime &lt;#{zzrq}
+		</if>
+		ORDER BY a.devTime DESC
+	</select>
+		
+	
+	<select id="findDevDataAppList" parameterType="Map"
+		resultType="DevDataApp">
+		SELECT id,devID,loVolt,devTime,devTypeArray,devNameArray,devValueArray
+		FROM sys_device_data a
+		WHERE 1 = 1
+		<if test="devId != null and devId != '' ">
+			AND a.devId = #{devId}
+		</if>
+		<if test="qsrq != null and qsrq != '' ">
+            AND a.devTime &gt;=#{qsrq}
+		</if>
+		<if test="zzrq != null and zzrq != '' ">
+		    AND a.devTime &lt;#{zzrq}
+		</if>
+		ORDER BY a.devTime DESC
+	</select>
+	
+	
+	<delete id="deleteByIds" parameterType="map" statementType="PREPARED">
+		DELETE FROM sys_device_data 
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND id in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+</mapper>

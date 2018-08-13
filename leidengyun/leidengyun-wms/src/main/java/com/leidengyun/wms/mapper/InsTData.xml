@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leidengyun.wms.dao.InsTDataDao">
+	<select id="get" parameterType="java.lang.Integer" resultType="InsTData">
+		select guid,uuid,addr,type,sensorid instId,instr1 v,instr2 v1 
+		FROM dev_sensor a
+		WHERE a.uuid = #{uuid}
+	</select>
+
+
+	<select id="findListByDevId" parameterType="Map" resultType="InsTData">
+		select guid,uuid,addr,type,sensorid instId,instr1 v,instr2 v1 
+		from dev_sensor t where t.guid in 
+		(select guid from device_sync a where a.DEVICE_ID=#{devId})
+	</select>
+	
+	<select id="findByDevId" parameterType="Map" resultType="InsTData">
+		select guid,uuid,addr,type,sensorid instId,instr1 v,instr2 v1 
+		FROM dev_sensor a where  a.guid = #{guid}
+		order by a.addr asc
+	</select>
+	
+
+
+	<delete id="deleteInstByIds" parameterType="list" statementType="PREPARED">
+		DELETE FROM dev_sensor 
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND guid in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>
+		</if>
+	</delete>
+	
+	<delete id="deleteByUuid" parameterType="list" statementType="PREPARED">
+		DELETE FROM dev_sensor 
+		WHERE 1 = 1
+		<if test="uuid != null">
+			AND guid = #{uuid}
+		</if>
+	</delete>
+</mapper>

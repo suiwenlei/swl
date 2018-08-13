@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leidengyun.wms.dao.DevDao">
+	<select id="get" parameterType="java.lang.Integer" resultType="com.leidengyun.wms.model.Dev">
+		SELECT *
+		FROM sys_dev a
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="com.leidengyun.wms.model.Dev" statementType="PREPARED"
+			useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_dev(
+		devId,
+		bz,
+		sort,
+		createTime,
+		isEnable
+		)
+		VALUES (
+		#{devId},
+		#{bz},
+		#{sort},
+		#{createTime},
+		#{isEnable}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.leidengyun.wms.model.Dev" statementType="PREPARED">
+		UPDATE
+		sys_dev a SET
+		a.`devId` = #{devId},
+		a.`bz` = #{bz},
+		a.sort = #{sort},
+		a.isEnable = #{isEnable}
+		WHERE a.`id` = #{id}
+	</update>
+
+	<update id="enable" parameterType="Map" statementType="PREPARED">
+		UPDATE sys_dev a SET
+		 a.isEnable = #{isEnable}
+		WHERE 1 = 1
+		<if test="idList != null">
+			AND a.`id` in
+			<foreach collection="idList" item="item" open="(" separator=","
+				close=")">#{item}</foreach>
+		</if>
+	</update>
+
+	<select id="findPaginationByDevId" parameterType="Map"
+		resultType="com.leidengyun.wms.model.Dev">
+		select a.id,a.devid,a.bz,a.sort,a.createTime,a.isEnable,
+			(select name from china b where b.id=RPAD(substr(a.devid,1,2),6,0)) devProvMc,
+			(select name from china c where c.id=substr(a.devId,1,6)) devCityMc 
+		from sys_dev a
+		WHERE 1 = 1
+		<if test="devId != null and devId != '' ">
+			AND a.devId like CONCAT('%',#{devId},'%')
+		</if>
+		ORDER BY a.sort DESC, a.createTime DESC
+	</select>
+
+	<select id="findByDevId" parameterType="Map" resultType="com.leidengyun.wms.model.Dev">
+		SELECT *
+		FROM sys_dev a
+		WHERE 1 = 1
+		AND a.devId = #{devId}
+	</select>
+
+	<delete id="deleteById" parameterType="list" statementType="PREPARED">
+		DELETE FROM sys_dev
+		<choose>
+			<when test="list == null or list.size() == 0">
+				WHERE 1 != 1
+			</when>
+			<when test="list.size() == 1">
+				WHERE `id` =
+				<foreach collection="list" item="id">#{id}</foreach>
+			</when>
+			<otherwise>
+				WHERE `id` in
+				<foreach collection="list" item="id" open="(" separator=","
+					close=")">#{id}</foreach>
+			</otherwise>
+		</choose>
+	</delete>
+
+	<select id="findByUserId" parameterType="Map" resultType="com.leidengyun.wms.model.Dev">
+<!-- 		SELECT * -->
+<!-- 		FROM device_users a -->
+<!-- 		WHERE 1 = 1 --> <!-- 		AND a.isEnable = #{isEnable} --> 
+<!-- 		<if test="userId != null and userId != '' "> -->
+<!-- 			AND EXISTS (SELECT 1 -->
+<!-- 			FROM SYS_RE_USER_APP ua -->
+<!-- 			WHERE ua.appId = a.id -->
+<!-- 			AND ua.userId = #{userId}) -->
+<!-- 		</if> -->
+<!-- 		ORDER BY a.sort DESC, a.createTime DESC -->
+	</select>
+
+	<select id="findAppCodeByUserId" parameterType="Map" resultType="String">
+<!-- 		SELECT a.code -->
+<!-- 		FROM SYS_APP a -->
+<!-- 		WHERE a.isEnable = #{isEnable} -->
+<!-- 		<if test="userId != null and userId != '' "> -->
+<!-- 			AND EXISTS ( -->
+<!-- 			SELECT 1 -->
+<!-- 			FROM SYS_RE_USER_APP ua -->
+<!-- 			WHERE ua.appId = a.id -->
+<!-- 			AND ua.userId = #{userId} -->
+<!-- 			) -->
+<!-- 		</if> -->
+	</select>
+</mapper>

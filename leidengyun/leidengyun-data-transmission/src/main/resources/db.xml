@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+<jdbc>
+<url>jdbc:mysql://39.106.206.67:3306/leidengyun?characterEncoding=utf8</url>
+<driver>com.mysql.jdbc.Driver</driver>
+<username>leidengyun</username>
+<password>leidengyun</password>
+</jdbc>
+ -->
+
+<jdbc>
+<url>jdbc:mysql://47.92.36.153:3306/mysql?characterEncoding=utf8</url>
+<driver>com.mysql.jdbc.Driver</driver>
+<username>root</username>
+<password>root</password>
+</jdbc>

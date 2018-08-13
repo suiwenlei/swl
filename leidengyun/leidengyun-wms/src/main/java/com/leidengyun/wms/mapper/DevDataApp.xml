@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.leidengyun.wms.dao.DevDataAppDao">
+	<select id="get" parameterType="java.lang.Integer" resultType="DevDataApp">
+		select *
+		from sys_device_data a
+		WHERE a.devId = #{devId}
+	</select>
+
+
+	<insert id="insert" parameterType="DevDataApp" statementType="PREPARED"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_device_data(
+	
+		devId,
+		devCode,
+		devLength,
+		devData,
+		loVolt,
+		devTime,
+		devTypeArray,
+		devNameArray,
+		devValueArray,
+		ifSend,
+		ifRevice,
+		uuid
+		)
+		VALUES (
+		#{devId},
+		#{devCode},
+		#{devLength},
+		#{devData},
+		#{loVolt},
+		#{devTime},
+		#{devTypeArray},
+		#{devNameArray},
+		#{devValueArray},
+		#{ifSend},
+		#{ifRevice},
+		#{uuid}
+		)
+	</insert>
+
+
+
+	<select id="findDevList" parameterType="Map"
+		resultType="DevDataApp">
+		SELECT *
+		FROM sys_device_data a
+		WHERE 1 = 1
+		<if test="devId != null and devId != '' ">
+			AND a.DEVICE_ID = #{devId}
+		</if>
+		<if test="qsrq != null and qsrq != '' ">
+			AND DATE_FORMAT(a.devTime,'%Y-%m-%d') &gt;=#{qsrq} 	
+		</if>
+		<if test="zzrq != null and zzrq != '' ">
+			AND DATE_FORMAT(a.devTime,'%Y-%m-%d') &lt;=#{zzrq} 	
+		</if>
+		
+		ORDER BY a.devTime DESC
+	</select>
+
+	<select id="findByDevId" parameterType="Map" resultType="DevDataApp">
+		SELECT *
+		FROM sys_device_data a
+		WHERE 1 = 1
+		AND a.devId = #{devId}
+	</select>
+
+	<delete id="deleteByUuid" parameterType="map" statementType="PREPARED">
+		DELETE FROM sys_device_data
+		WHERE 1 = 1
+		<if test="uuid != null">
+			AND uuid = #{uuid}
+		</if>
+	</delete>
+</mapper>

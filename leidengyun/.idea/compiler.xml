@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="leidengyun-data-transmission" />
+        <module name="leidengyun-mvc" />
+        <module name="leidengyun-sso-client" />
+        <module name="leidengyun-wlwpt" />
+        <module name="leidengyun-wms" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="leidengyun-static" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
