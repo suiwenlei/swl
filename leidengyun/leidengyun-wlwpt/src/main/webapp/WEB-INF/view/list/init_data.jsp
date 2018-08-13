@@ -16,6 +16,7 @@
 
 <link type="text/css" rel="styleSheet"  href="${_path}/map/css/loading.css" />
 <script type="text/javascript" src="${_path}/map/js/loading.js"></script>
+<script type="text/javascript" src="${_path}/map/js/jquery.table.min.js"></script>
 <div class="row">
 	<div class="col-xs-12">
 		<!-- PAGE CONTENT BEGINS -->
@@ -74,8 +75,8 @@
 									
 									<div>
 										<div class="dataTables_wrapper form-inline no-footer">
-											<div id="_table" style="overflow: auto;" class="table table-striped table-bordered table-hover dataTable no-footer">
-												<table></table>
+											<div  id="_table" style="overflow: auto;" class="table table-striped table-bordered table-hover dataTable no-footer">
+												
 											</div>
 										</div>
 										<div id="over" class="overLoading"></div>

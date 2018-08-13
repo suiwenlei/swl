@@ -112,8 +112,6 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 			List<Map> list = getTitleList(devId, qsrq, zzrq);
 			if(list.size()>0 && list!=null){
 				map=list.get(0);
-			}else{
-				return "";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,7 +173,6 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 				+ "devTypeArray TypeArray  FROM sys_device_data t "
 				+ "where t.devId='"+devId+"' group by devNameArray,devTypeArray order by id desc  ";
 		List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
-		//
 		StringBuilder rs = new  StringBuilder();
 		StringBuilder rs1 = new  StringBuilder();
 		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
