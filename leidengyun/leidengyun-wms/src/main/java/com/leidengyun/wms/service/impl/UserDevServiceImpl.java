@@ -16,11 +16,13 @@ import com.leidengyun.wms.service.UserDevService;
 public class UserDevServiceImpl extends ServiceImpl<UserDevDao, UserDev, Integer> implements UserDevService {
 
 	
+	@Override
 	@Autowired
 	public void setDao(UserDevDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	@Transactional
 	public void allocate(Integer userId, List<Integer> idList, List<UserDev> list) {
 		if(idList ==null || idList.size()==0){idList.add(null);}
@@ -29,14 +31,17 @@ public class UserDevServiceImpl extends ServiceImpl<UserDevDao, UserDev, Integer
 		if(list!=null || idList.size()>0){super.save(list);}
 	}
 	
+	@Override
 	public UserDev findByUserDevId(Integer userId, String devId) {
 		return dao.findByUserDevId(userId, devId);
 	}
 	
+	@Override
 	public void deleteByUserIds(List<Integer> idList) {
 		dao.deleteByUserIds(idList);
 	}
 	
+	@Override
 	public void deleteByDevIds(List<Integer> idList) {
 		dao.deleteByDevIds(idList);
 	}

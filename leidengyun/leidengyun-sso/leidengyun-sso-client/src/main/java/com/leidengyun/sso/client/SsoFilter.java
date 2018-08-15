@@ -28,13 +28,15 @@ public class SsoFilter extends ClientFilter {
 				// 再跳转一次当前URL，以便去掉URL中token参数
 				response.sendRedirect(request.getRequestURL().toString());
 			}
-			else
+			else {
 				redirectLogin(request, response);
+			}
 		}
-		else if (isLogined(token))
+		else if (isLogined(token)) {
 			chain.doFilter(request, response);
-		else
+		} else {
 			redirectLogin(request, response);
+		}
 	}
 
 	/**

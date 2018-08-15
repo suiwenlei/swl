@@ -32,11 +32,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User, Integer> impleme
 	@Resource
 	private AppService appService;
 
+	@Override
 	@Autowired
 	public void setDao(UserDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	public Result login(String ip, String appCode, String account, String password) {
 		Result result = Result.createSuccessResult();
 		User user = findByAccount(account);
@@ -68,27 +70,33 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User, Integer> impleme
 		return result;
 	}
 
+	@Override
 	public void enable(Boolean isEnable, List<Integer> idList) {
 		verifyRows(dao.enable(isEnable, idList), idList.size(), "管理员数据库更新失败");
 	}
 	
+	@Override
 	public void save(User t) {
 		super.save(t);
 	}
 
+	@Override
 	public void resetPassword(String password, List<Integer> idList) {
 		verifyRows(dao.resetPassword(password, idList), idList.size(), "管理员密码数据库重置失败");
 	}
 
+	@Override
 	public Pagination<User> findPaginationByAccount(String account, Integer appId, Pagination<User> p) {
 		dao.findPaginationByAccount(account, appId, p);
 		return p;
 	}
 	
+	@Override
 	public User findByAccount(String account) {
 		return dao.findByAccount(account);
 	}
 	
+	@Override
 	@Transactional
 	public void deleteById(List<Integer> idList) {
 		userAppService.deleteByUserIds(idList);

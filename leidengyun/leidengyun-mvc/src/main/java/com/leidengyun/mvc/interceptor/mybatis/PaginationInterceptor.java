@@ -46,9 +46,9 @@ public class PaginationInterceptor implements Interceptor {
 		if (invocation.getTarget() instanceof StatementHandler) {
 			StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
 			Pagination<?> pagination = findPaginationParameter(statementHandler.getBoundSql().getParameterObject());
-			if (pagination == null)
+			if (pagination == null) {
 				return invocation.proceed();
-			else {
+			} else {
 				localPagination.set(pagination);
 			}
 
@@ -82,8 +82,9 @@ public class PaginationInterceptor implements Interceptor {
 		}
 		else if (invocation.getTarget() instanceof ResultSetHandler) {
 			Pagination<?> pagination = localPagination.get();
-			if (pagination == null)
+			if (pagination == null) {
 				return invocation.proceed();
+			}
 			try {
 				Object result = invocation.proceed();
 				pagination.setList((List) result);

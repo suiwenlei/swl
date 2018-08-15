@@ -62,6 +62,7 @@ public class ZookeeperLock extends DistributedLock {
 	 * @throws KeeperException
 	 * @throws InterruptedException
 	 */
+	@Override
 	public void lock() {
 		try {
 			lockPath = zookeeper.create(root + "/lock_", new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,
@@ -119,6 +120,7 @@ public class ZookeeperLock extends DistributedLock {
 	/**
 	 * 释放锁
 	 */
+	@Override
 	public void unlock() {
 		if (StringUtils.isBlank(lockPath)) {
 			LOGGER.error("no need to unlock!");
@@ -139,6 +141,7 @@ public class ZookeeperLock extends DistributedLock {
 	 *
 	 * @return
 	 */
+	@Override
 	public boolean tryLock() {
 		try {
 			lockPath = zookeeper.create(root + "/lock_", new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,

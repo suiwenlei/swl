@@ -50,8 +50,9 @@ public class StringUtils {
 	 * @return
 	 */
 	public static boolean isBlank(final CharSequence ... css) {
-		if (css == null)
+		if (css == null) {
 			return true;
+		}
 		
 		for (CharSequence cs : css) {
 			if(isNotBlank(cs)) {

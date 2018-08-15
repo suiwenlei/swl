@@ -21,28 +21,34 @@ public class InstrumentServiceImpl extends ServiceImpl<InstrumentDao, Instrument
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@Override
 	@Autowired
 	public void setDao(InstrumentDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	public void enable(Boolean isEnable, List<Integer> idList) {
 		verifyRows(dao.enable(isEnable, idList), idList.size(), "应用数据库更新失败");
 	}
 	
+	@Override
 	public void save(Instrument t) {
 		super.save(t);
 	}
 
+	@Override
 	public List<Instrument> findByAll(String insName) {
 		return dao.findPaginationByInsName(insName, null);
 	}
 
+	@Override
 	public Pagination<Instrument> findPaginationByInsName(String insName, Pagination<Instrument> p) {
 		dao.findPaginationByInsName(insName, p);
 		return p;
 	}
 
+	@Override
 	public Instrument findByInsName(String insName) {
 		return dao.findByInsName(insName);
 	}

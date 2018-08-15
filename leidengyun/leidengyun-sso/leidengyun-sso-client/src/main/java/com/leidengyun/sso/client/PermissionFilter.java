@@ -32,11 +32,11 @@ public class PermissionFilter extends ClientFilter {
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String path = request.getServletPath();
-		if (isPermitted(request, path))
+		if (isPermitted(request, path)) {
 			chain.doFilter(request, response);
-		else if (!ApplicationPermissionUtils.getApplicationPermissionSet().contains(path))
+		} else if (!ApplicationPermissionUtils.getApplicationPermissionSet().contains(path)) {
 			chain.doFilter(request, response);
-		else {
+		} else {
 			throw new ServiceException(SsoResultCode.SSO_PERMISSION_ERROR, "没有访问权限");
 		}
 	}

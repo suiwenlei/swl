@@ -40,19 +40,24 @@ public class LoginUser implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		LoginUser other = (LoginUser) obj;
 		if (userId == null) {
-			if (other.userId != null)
+			if (other.userId != null) {
 				return false;
+			}
 		}
-		else if (!userId.equals(other.userId))
+		else if (!userId.equals(other.userId)) {
 			return false;
+		}
 		return true;
 	}
 }

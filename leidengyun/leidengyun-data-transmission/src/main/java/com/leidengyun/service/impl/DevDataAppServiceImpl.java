@@ -12,11 +12,13 @@ import com.leidengyun.service.DevDataAppService;
 public class DevDataAppServiceImpl extends ServiceImpl<DevDataAppDao, DevDataApp, Integer> implements DevDataAppService {
 	
 
+	@Override
 	@Autowired
 	public void setDao(DevDataAppDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	public void save(DevDataApp t) {
 		super.save(t);
 	}

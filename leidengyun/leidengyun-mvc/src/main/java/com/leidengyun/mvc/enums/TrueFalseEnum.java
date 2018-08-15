@@ -21,10 +21,12 @@ public enum TrueFalseEnum implements EnumItemable<TrueFalseEnum> {
 		this.value = value;
 	}
 
+	@Override
 	public String getLabel() {
 		return this.label;
 	}
 
+	@Override
 	public Boolean getValue() {
 		return this.value;
 	}

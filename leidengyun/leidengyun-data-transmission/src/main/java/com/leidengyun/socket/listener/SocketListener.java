@@ -1,14 +1,16 @@
 package com.leidengyun.socket.listener;
 
+import com.leidengyun.socket.task.Task;
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.log4j.Logger;
-
-import com.leidengyun.socket.task.Task;
-
+/**
+ * 监听Socket通信
+ */
 public class SocketListener implements Runnable {
 
 	private ServerSocket ss;
@@ -18,20 +20,17 @@ public class SocketListener implements Runnable {
 	private int backlog = 9999999;
 	private static Logger logger = Logger.getLogger(SocketListener.class);
 	private ConcurrentHashMap<Integer, Socket> serverMap = new ConcurrentHashMap<Integer, Socket>();
-
 	public int getPort() {
 		return this.port;
 	}
-
 	public void setPort(int port) {
 		this.port = port;
 	}
-
+	@Override
 	public void run() {
 		init();  //监听初始化
 		Listener(); //监听
 	}
-
 	public void init() {
 		try {
 			this.ss = new ServerSocket(this.port, this.backlog);
@@ -64,7 +63,6 @@ public class SocketListener implements Runnable {
 		}
 	}
 
-	
 	/**
 	 * 释放资源
 	 */
@@ -81,7 +79,6 @@ public class SocketListener implements Runnable {
 		}
 	}
 
-	
 	/**
 	 * 请求次数
 	 * @return

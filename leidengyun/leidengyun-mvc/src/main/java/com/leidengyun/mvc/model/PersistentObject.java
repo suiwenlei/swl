@@ -29,9 +29,11 @@ public class PersistentObject implements Serializable{
 	 *            o
 	 * @return boolean
 	 */
+	@Override
 	public boolean equals(Object o) {
-		if (this == o)
+		if (this == o) {
 			return true;
+		}
 		if (o == null || !(o instanceof PersistentObject)) {
 			return false;
 		}
@@ -44,6 +46,7 @@ public class PersistentObject implements Serializable{
 	 * 
 	 * @return int
 	 */
+	@Override
 	public int hashCode() {
 		if (id == null) {
 			return Integer.valueOf(0);
@@ -56,6 +59,7 @@ public class PersistentObject implements Serializable{
 	 * 
 	 * @return String
 	 */
+	@Override
 	public String toString() {
 		return this.getClass().getName() + "[id=" + id + "]";
 	}

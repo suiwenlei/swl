@@ -17,37 +17,45 @@ public class DevServiceImpl extends ServiceImpl<DevDao, Dev, Integer> implements
 	
 	
 
+	@Override
 	@Autowired
 	public void setDao(DevDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	public void enable(Boolean isEnable, List<Integer> idList) {
 		verifyRows(dao.enable(isEnable, idList), idList.size(), "应用数据库更新失败");
 	}
 	
+	@Override
 	public void save(Dev t) {
 		super.save(t);
 	}
 
+	@Override
 	public List<Dev> findByAll(String deviceId) {
 		return dao.findPaginationByDevId(deviceId, null);
 	}
 
+	@Override
 	public Pagination<Dev> findPaginationByDevId(String devId, Pagination<Dev> p) {
 		dao.findPaginationByDevId(devId, p);
 		return p;
 	}
 
+	@Override
 	public Dev findByDevId(String devId) {
 		return dao.findByDevId(devId);
 	}
 	
+	@Override
 	public List<Dev> findByUserId(Boolean isEnable, Integer userId) {
 		return dao.findByUserId(isEnable, userId);
 	}
 	
 
+	@Override
 	public Set<String> findDevCodeByUserId(Boolean isEnable, Integer userId) {
 		return dao.findDevCodeByUserId(isEnable, userId);
 	}

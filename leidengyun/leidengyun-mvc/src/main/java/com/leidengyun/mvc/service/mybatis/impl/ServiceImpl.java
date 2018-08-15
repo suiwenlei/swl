@@ -41,6 +41,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param p
 	 * @return
 	 */
+	@Override
 	public Pagination<T> findByAllPagination(Pagination<T> p) {
 		dao.findByAll(p);
 		return p;
@@ -53,6 +54,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 *            pk
 	 * @return T
 	 */
+	@Override
 	public T get(ID pk) {
 		return dao.get(pk);
 	}
@@ -64,6 +66,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 *            <PK> pks
 	 * @return List<T>
 	 */
+	@Override
 	public List<T> get(Collection<ID> pks) {
 		List<T> list = new ArrayList<T>(pks.size());
 		for (ID pk : pks) {
@@ -79,6 +82,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 *            t
 	 * 
 	 */
+	@Override
 	public void save(T t) {
 		if (t.getId() == null) {
 			dao.insert(t);
@@ -94,6 +98,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param List
 	 *            <T> ts
 	 */
+	@Override
 	public void save(Collection<T> ts) {
 		for (T t : ts) {
 			save(t);
@@ -106,6 +111,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param T
 	 *            t
 	 */
+	@Override
 	public void update(T t) {
 		verifyRows(dao.update(t), 1, "数据库更新失败");
 	}
@@ -116,6 +122,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param List
 	 *            <T> ts
 	 */
+	@Override
 	public void update(Collection<T> ts) {
 		for (T t : ts) {
 			update(t);
@@ -128,6 +135,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param T
 	 *            t
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void delete(T t) {
 		deleteById((ID) t.getId());
@@ -139,6 +147,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 * @param List
 	 *            <T> ts
 	 */
+	@Override
 	public void delete(Collection<T> ts) {
 		for (T t : ts) {
 			delete(t);
@@ -152,6 +161,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 *            pk
 	 * @return T
 	 */
+	@Override
 	public void deleteById(ID id) {
 		deleteById(Arrays.asList(id));
 	}
@@ -163,6 +173,7 @@ public abstract class ServiceImpl<DAO extends Dao<T, ID>, T extends PersistentOb
 	 *            <PK> pks
 	 * @return List<T>
 	 */
+	@Override
 	public void deleteById(List<ID> idList) {
 		verifyRows(dao.deleteById(idList), idList.size(), "数据库删除失败");
 	}

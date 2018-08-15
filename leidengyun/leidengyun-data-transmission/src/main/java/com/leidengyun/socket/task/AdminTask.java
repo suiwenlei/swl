@@ -5,12 +5,14 @@ import org.apache.log4j.Logger;
 
 import com.leidengyun.common.ConfigServlet;
 
+/**
+ * 雷登云
+ * 数据传输服务任务入口
+ */
 public class AdminTask {
 	
 	public static Logger logger = Logger.getLogger(AdminTask.class);
-
 	public static void receiveDevData() throws ClassNotFoundException {
-		
 		SocketListener listener = new SocketListener();
 		try {
 			logger.info("......SOCKET...IS.....WORKING ");

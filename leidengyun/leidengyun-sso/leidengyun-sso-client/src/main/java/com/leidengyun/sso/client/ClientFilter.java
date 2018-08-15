@@ -64,9 +64,9 @@ public abstract class ClientFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		if (matchExcludePath(httpRequest.getServletPath()))
+		if (matchExcludePath(httpRequest.getServletPath())) {
 			chain.doFilter(request, response);
-		else {
+		} else {
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			try {
 				doFilter(httpRequest, httpResponse, chain);

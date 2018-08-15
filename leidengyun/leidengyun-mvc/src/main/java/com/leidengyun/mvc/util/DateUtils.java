@@ -434,11 +434,11 @@ public class DateUtils {
 	 
 	public static float getTypeByCompare(Date preDate,Date afterDate,Integer type, Boolean hasFloat){
 		if (preDate == null || afterDate == null) {
-			return 0l;
+			return 0L;
 		}
-		long diff = 0l; 
+		long diff = 0L;
 		diff = afterDate.getTime() - preDate.getTime(); 
-		long l = 1l;
+		long l = 1L;
 		switch (type) {
 		case 1:
 			l = 1000 * 60 * 60 * 24;
@@ -451,7 +451,9 @@ public class DateUtils {
 			break; 
 		case 4:
 			l = 1000 ;
-			break; 
+			break;
+		default:
+			break;
 		}
 		if (hasFloat) {
 			float a = diff;

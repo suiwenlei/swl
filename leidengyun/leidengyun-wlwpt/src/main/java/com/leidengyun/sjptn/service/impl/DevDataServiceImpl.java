@@ -47,6 +47,7 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		devDataAppService.deleteByIds(idList);//先删除字表数据
 	}
 	
+	@Override
 	public DevData findByDevId(String devId) {
 		return dao.findByDevId(devId);
 	}
@@ -57,7 +58,8 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		return dao.findDevList(devId, qsrq, zzrq);
 	}
 	
-	public Pagination<DevData> findPaginationByDevId(String devId,String qsrq,String zzrq,Pagination<DevData> p) {
+	@Override
+	public Pagination<DevData> findPaginationByDevId(String devId, String qsrq, String zzrq, Pagination<DevData> p) {
 		
 		List<DevData> list = p.getList();
 		Map<String, Object> dataMap = new HashMap();
@@ -84,7 +86,8 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		return p;
 	}
 
-	public Map<String, Object> getZdMapInst(String type,String isntId,String A){
+	@Override
+	public Map<String, Object> getZdMapInst(String type, String isntId, String A){
 		if(StringUtils.isNotBlank(A)){
 			try {
 				return jdbcTemplate.queryForMap("select * from sys_instrument a where concat(a.insType,a.insId)='"+A+"' ");
@@ -153,6 +156,7 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		return JsonTitle;
 	}
 
+	@Override
 	@Autowired
 	public void setDao(DevDataDao dao) {
 		this.dao = dao;

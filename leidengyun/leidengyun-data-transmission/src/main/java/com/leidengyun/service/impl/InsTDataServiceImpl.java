@@ -14,6 +14,7 @@ import java.util.List;
 public class InsTDataServiceImpl extends ServiceImpl<InsTDataDao, InsTData, Integer> implements InsTDataService {
 
 	
+	@Override
 	@Autowired
 	public void setDao(InsTDataDao dao) {
 		this.dao = dao;

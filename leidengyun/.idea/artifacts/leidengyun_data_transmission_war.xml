@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="leidengyun-data-transmission:war">
+    <output-path>$PROJECT_DIR$/leidengyun-data-transmission/target</output-path>
+    <root id="archive" name="/leidengyun-data-transmission.war">
+      <element id="artifact" artifact-name="leidengyun-data-transmission:war exploded" />
+    </root>
+  </artifact>
+</component>

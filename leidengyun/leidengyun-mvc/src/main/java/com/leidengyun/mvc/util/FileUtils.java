@@ -246,8 +246,9 @@ public class FileUtils {
 	 * 
 	 */
 	public static void copy(final File from, final File to) throws IOException {
-		if (!from.exists())
+		if (!from.exists()) {
 			return;
+		}
 		if (from.isFile()) {
 			copyFile(from, to);
 		}
@@ -491,7 +492,7 @@ public class FileUtils {
 		long size = 0;
 		final File[] files = directory.listFiles();
 		if (files == null) {
-			return 0l;
+			return 0L;
 		}
 		for (int i = 0; i < files.length; i++) {
 			final File file = files[i];

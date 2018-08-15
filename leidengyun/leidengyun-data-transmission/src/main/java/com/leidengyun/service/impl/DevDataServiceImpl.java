@@ -37,12 +37,14 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	@Resource
 	DevDataAppService devDataAppService;
 
+	@Override
 	@Autowired
 	public void setDao(DevDataDao dao) {
 		this.dao = dao;
 	}
 	
-	public Pagination<DevData> findPaginationByDevId(String devId,String qsrq,String zzrq,Pagination<DevData> p) {
+	@Override
+	public Pagination<DevData> findPaginationByDevId(String devId, String qsrq, String zzrq, Pagination<DevData> p) {
 		dao.findPaginationByDevId(devId,qsrq,zzrq,p);
 		List<DevData> list = p.getList();
 		Map<String, Object> dataMap = new HashMap();
@@ -69,10 +71,12 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		return p;
 	}
 
+	@Override
 	public DevData findByDevId(String devId) {
 		return dao.findByDevId(devId);
 	}
 	
+	@Override
 	public Map<String, Object> getZdMapInst(String type, String isntId, String A) {
 		if (StringUtils.isNotBlank(A)) {
 			try {
@@ -205,7 +209,8 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		dao.deleteByUuid(uuid);//删除主表数据
 	}
 	
-	public int updateDevDataByuuid(String guid,int ifsync){
+	@Override
+	public int updateDevDataByuuid(String guid, int ifsync){
 		return dao.updateDevDataByuuid(guid,ifsync);
 	}
 }

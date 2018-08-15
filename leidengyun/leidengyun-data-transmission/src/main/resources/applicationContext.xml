@@ -14,7 +14,7 @@
 
 	<context:annotation-config />
 	<bean id="springContextHolder" class="com.leidengyun.common.SpringContextHolder" />
-	<bean class="ConfigUtils">
+	<bean class="com.leidengyun.mvc.config.ConfigUtils">
 		<property name="fileEncoding" value="UTF-8" />
 		<property name="locations">
 			<list>
@@ -35,7 +35,7 @@
 		class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
 		<property name="serviceUrl"
 			value="${sso.server.url}/rpc/authenticationRpcService" />
-		<property name="serviceInterface" value="com.smart.sso.rpc.AuthenticationRpcService" />
+		<property name="serviceInterface" value="com.leidengyun.sso.rpc.AuthenticationRpcService" />
 	</bean>
 	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" id="schedulerFactoryBean">

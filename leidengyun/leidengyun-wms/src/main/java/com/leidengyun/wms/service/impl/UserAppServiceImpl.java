@@ -21,11 +21,13 @@ public class UserAppServiceImpl extends ServiceImpl<UserAppDao, UserApp, Integer
 	@Resource
 	private UserRoleService userRoleService;
 	
+	@Override
 	@Autowired
 	public void setDao(UserAppDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	@Transactional
 	public void allocate(Integer userId, List<Integer> idList, List<UserApp> list) {
 		userRoleService.deleteForChangeApp(userId, idList);
@@ -33,14 +35,17 @@ public class UserAppServiceImpl extends ServiceImpl<UserAppDao, UserApp, Integer
 		super.save(list);
 	}
 	
+	@Override
 	public UserApp findByUserAppId(Integer userId, Integer roleId) {
 		return dao.findByUserAppId(userId, roleId);
 	}
 	
+	@Override
 	public void deleteByUserIds(List<Integer> idList) {
 		dao.deleteByUserIds(idList);
 	}
 	
+	@Override
 	public void deleteByAppIds(List<Integer> idList) {
 		dao.deleteByAppIds(idList);
 	}

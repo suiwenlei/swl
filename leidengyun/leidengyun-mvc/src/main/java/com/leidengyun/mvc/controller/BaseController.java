@@ -65,7 +65,7 @@ public class BaseController {
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-		if (ip.equals("0:0:0:0:0:0:0:1")) {
+		if ("0:0:0:0:0:0:0:1".equals(ip)) {
 			ip = "本地";
 		}
 		return ip;

@@ -27,11 +27,13 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionDao, Ro
 	@Resource
 	private PermissionJmsService permissionJmsService;
 
+	@Override
 	@Autowired
 	public void setDao(RolePermissionDao dao) {
 		this.dao = dao;
 	}
 
+	@Override
 	@Transactional
 	public void allocate(Integer roleId, List<RolePermission> list) {
 		dao.deleteByRoleIds(Arrays.asList(roleId));
@@ -40,18 +42,22 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionDao, Ro
 		permissionJmsService.send(appService.get(roleService.get(roleId).getAppId()).getCode());
 	}
 
+	@Override
 	public List<RolePermission> findByRoleId(Integer roleId) {
 		return dao.findByRoleId(roleId);
 	}
 
+	@Override
 	public void deleteByPermissionIds(List<Integer> idList) {
 		dao.deleteByPermissionIds(idList);
 	}
 	
+	@Override
 	public void deleteByRoleIds(List<Integer> idList) {
 		dao.deleteByRoleIds(idList);
 	}
 	
+	@Override
 	public void deleteByAppIds(List<Integer> idList) {
 		dao.deleteByAppIds(idList);
 	}

@@ -1,20 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
+    </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for leidengyun-wlwpt" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="leidengyun-data-transmission" />
-        <module name="leidengyun-mvc" />
-        <module name="leidengyun-sso-client" />
+        <processorPath useClasspath="true" />
         <module name="leidengyun-wlwpt" />
+      </profile>
+      <profile default="false" name="Annotation profile for leidengyun-mvc" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="leidengyun-mvc" />
+      </profile>
+      <profile default="false" name="Annotation profile for leidengyun-data-transmission" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="leidengyun-data-transmission" />
+      </profile>
+      <profile default="false" name="Annotation profile for leidengyun-wms" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
         <module name="leidengyun-wms" />
+      </profile>
+      <profile default="false" name="Annotation profile for leidengyun-sso-client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="leidengyun-sso-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="leidengyun-static" target="1.8" />
+      <module name="leidengyun" target="1.7" />
+      <module name="leidengyun-data-transmission" target="1.7" />
+      <module name="leidengyun-mvc" target="1.7" />
+      <module name="leidengyun-sso" target="1.7" />
+      <module name="leidengyun-sso-client" target="1.7" />
+      <module name="leidengyun-wlwpt" target="1.7" />
+      <module name="leidengyun-wms" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

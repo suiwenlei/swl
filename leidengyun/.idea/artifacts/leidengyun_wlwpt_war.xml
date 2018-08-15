@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="leidengyun-wlwpt:war">
+    <output-path>$PROJECT_DIR$/leidengyun-wlwpt/target</output-path>
+    <root id="archive" name="/leidengyun-wlwpt.war">
+      <element id="artifact" artifact-name="leidengyun-wlwpt:war exploded" />
+    </root>
+  </artifact>
+</component>

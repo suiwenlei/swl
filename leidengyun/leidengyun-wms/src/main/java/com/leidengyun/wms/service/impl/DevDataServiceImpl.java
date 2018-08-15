@@ -30,16 +30,19 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	@Resource
 	DevDataAppService devDataAppService;
 
+	@Override
 	@Autowired
 	public void setDao(DevDataDao dao) {
 		this.dao = dao;
 	}
 	
-	public Pagination<DevData> findPaginationByDevId(String devId,String qsrq,String zzrq,Pagination<DevData> p) {
+	@Override
+	public Pagination<DevData> findPaginationByDevId(String devId, String qsrq, String zzrq, Pagination<DevData> p) {
 		dao.findPaginationByDevId(devId,qsrq,zzrq,p);
 		return p;
 	}
 
+	@Override
 	public DevData findByDevId(String devId) {
 		return dao.findByDevId(devId);
 	}

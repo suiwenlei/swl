@@ -28,21 +28,25 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission
 	@Resource
 	private PermissionJmsService permissionJmsService;
 
+	@Override
 	@Autowired
 	public void setDao(PermissionDao dao) {
 		this.dao = dao;
 	}
 
+	@Override
 	public void save(Permission t) {
 		super.save(t);
 		// JMS通知权限变更
 		permissionJmsService.send(appService.get(t.getAppId()).getCode());
 	}
 
+	@Override
 	public List<Permission> findByName(String name, Integer appId, Boolean isEnable) {
 		return dao.findByName(name, appId, isEnable);
 	}
 
+	@Override
 	@Transactional
 	public void deletePermission(Integer id, Integer appId) {
 		List<Integer> idList = new ArrayList<Integer>();
@@ -66,10 +70,12 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission
 		}
 	}
 
+	@Override
 	public void deleteByAppIds(List<Integer> idList) {
 		dao.deleteByAppIds(idList);
 	}
 
+	@Override
 	public List<RpcPermission> findListById(String appCode, Integer userId) {
 		return dao.findListById(appCode, userId);
 	}

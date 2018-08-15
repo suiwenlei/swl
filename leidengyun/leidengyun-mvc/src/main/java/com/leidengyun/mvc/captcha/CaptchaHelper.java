@@ -19,6 +19,7 @@ public class CaptchaHelper {
 
 	public static void setInCache(final HttpServletRequest request, HttpServletResponse response) throws IOException {
 		BufferedImage image = new Captcha() {
+			@Override
 			protected void setInCache(String captcha) {
 				request.getSession().setAttribute(CACHE_CAPTCHA, captcha);
 			}

@@ -18,6 +18,7 @@ public class Item implements Itemable {
 		this.value = value;
 	}
 
+	@Override
 	public String getLabel() {
 		return label;
 	}
@@ -26,6 +27,7 @@ public class Item implements Itemable {
 		this.label = label;
 	}
 
+	@Override
 	public Object getValue() {
 		return value;
 	}

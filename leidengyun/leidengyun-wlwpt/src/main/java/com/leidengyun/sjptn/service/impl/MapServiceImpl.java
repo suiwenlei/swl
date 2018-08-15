@@ -54,6 +54,7 @@ public class MapServiceImpl  implements MapService {
 	}
 	
 	
+	@Override
 	public String countMapTipsData(List<Map> devList){
 		
 		List<Map<String,Object>> tipList=(List<Map<String,Object>>)this.countMapData(devList,"tips");

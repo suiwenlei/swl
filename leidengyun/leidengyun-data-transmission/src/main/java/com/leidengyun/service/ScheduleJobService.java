@@ -28,6 +28,7 @@ public interface ScheduleJobService  extends Service<ScheduleJob, Integer> {
 	
 	public List<ScheduleJob> findListById(List<Integer> idList);
 	
+	@Override
 	public void deleteById(List<Integer> idList);
 
 	/**

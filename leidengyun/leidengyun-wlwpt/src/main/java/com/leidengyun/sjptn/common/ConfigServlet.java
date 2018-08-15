@@ -20,6 +20,7 @@ public class ConfigServlet extends HttpServlet {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigServlet.class);
 
+	@Override
 	public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
 		servletContext.setAttribute("_path", servletContext.getContextPath());

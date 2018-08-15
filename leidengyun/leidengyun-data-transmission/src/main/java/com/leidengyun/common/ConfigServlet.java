@@ -20,6 +20,7 @@ public class ConfigServlet extends HttpServlet {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfigServlet.class);
 
+	@Override
 	public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
 		servletContext.setAttribute("_path", servletContext.getContextPath());
@@ -41,8 +42,5 @@ public class ConfigServlet extends HttpServlet {
 	public static final Boolean STATUS_NOT_RUNNING = false;
 	
 	//设备上传相关参数
-	
 	public static final int PORT=8888;
-	public static final int CLOCK_PORT=1234;
-	
 }

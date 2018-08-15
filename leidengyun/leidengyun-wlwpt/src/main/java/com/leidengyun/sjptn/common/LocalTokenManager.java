@@ -1,11 +1,11 @@
 package com.leidengyun.sjptn.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Date;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 单实例环境令牌管理
@@ -16,7 +16,9 @@ public class LocalTokenManager extends TokenManager {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(LocalTokenManager.class);
 
-	// 令牌存储结构
+	/**
+	 * 令牌存储结构
+	 */
 	private final ConcurrentHashMap<String, DummyUser> tokenMap = new ConcurrentHashMap<String, LocalTokenManager.DummyUser>();
 
 	@Override
@@ -36,6 +38,7 @@ public class LocalTokenManager extends TokenManager {
 		}
 	}
 
+	@Override
 	public void addToken(String token, LoginUser loginUser) {
 		DummyUser dummyUser = new DummyUser();
 		dummyUser.loginUser = loginUser;
@@ -43,6 +46,7 @@ public class LocalTokenManager extends TokenManager {
 		tokenMap.putIfAbsent(token, dummyUser);
 	}
 
+	@Override
 	public LoginUser validate(String token) {
 		DummyUser dummyUser = tokenMap.get(token);
 		if (dummyUser == null) {
@@ -52,6 +56,7 @@ public class LocalTokenManager extends TokenManager {
 		return dummyUser.loginUser;
 	}
 
+	@Override
 	public void remove(String token) {
 		tokenMap.remove(token);
 	}
@@ -62,12 +67,17 @@ public class LocalTokenManager extends TokenManager {
 	 * @param dummyUser
 	 */
 	private void extendExpiredTime(DummyUser dummyUser) {
-		dummyUser.expired = new Date(new Date().getTime() + tokenTimeout * 1000);
+		dummyUser.expired = new Date(System.currentTimeMillis() + tokenTimeout * 1000);
 	}
 
-	// 复合结构体，含loginUser与过期时间expried两个成员
+	/**
+	 * 复合结构体，含loginUser与过期时间expried两个成员
+	 */
 	private class DummyUser {
 		private LoginUser loginUser;
-		private Date expired; // 过期时间
+		/**
+		 *  过期时间
+		 */
+		private Date expired;
 	}
 }

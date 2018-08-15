@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/leidengyun.iml" filepath="$PROJECT_DIR$/leidengyun.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-data-transmission/leidengyun-data-transmission.iml" filepath="$PROJECT_DIR$/leidengyun-data-transmission/leidengyun-data-transmission.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-mvc/leidengyun-mvc.iml" filepath="$PROJECT_DIR$/leidengyun-mvc/leidengyun-mvc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-sso/leidengyun-sso.iml" filepath="$PROJECT_DIR$/leidengyun-sso/leidengyun-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-sso/leidengyun-sso-client/leidengyun-sso-client.iml" filepath="$PROJECT_DIR$/leidengyun-sso/leidengyun-sso-client/leidengyun-sso-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-wlwpt/leidengyun-wlwpt.iml" filepath="$PROJECT_DIR$/leidengyun-wlwpt/leidengyun-wlwpt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leidengyun-wms/leidengyun-wms.iml" filepath="$PROJECT_DIR$/leidengyun-wms/leidengyun-wms.iml" />
+    </modules>
+  </component>
+</project>

@@ -22,6 +22,7 @@ public class ConfigServlet extends HttpServlet {
 	public static String  ssoServerUrl;
 	public static String  ssoAppCode;
 
+	@Override
 	public void init() throws ServletException {
 		ServletContext servletContext = getServletContext();
 		ssoServerUrl=ConfigUtils.getProperty("sso.server.url");

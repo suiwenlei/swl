@@ -59,17 +59,17 @@ public class DateUtis2 {
 	  
 	  public static String getTimeInMillis(String strDate, String strStatus)
 	  {
-	    if ((strDate.equals("")) || (strDate.isEmpty()) || (strDate == null)) {
+	    if (("".equals(strDate)) || (strDate.isEmpty()) || (strDate == null)) {
 	      return "0";
 	    }
 	    String[] strTemp = strDate.split("-", 0);
 	    Calendar cal = Calendar.getInstance();
 	    cal.setTimeZone(tz);
 	    cal.clear();
-	    if (strStatus.equals("begin")) {
+	    if ("begin".equals(strStatus)) {
 	      cal.set(Integer.valueOf(strTemp[0]).intValue(), Integer.valueOf(strTemp[1]).intValue() - 1, Integer.valueOf(strTemp[2]).intValue(), 0, 0, 0);
 	    }
-	    if (strStatus.equals("end")) {
+	    if ("end".equals(strStatus)) {
 	      cal.set(Integer.valueOf(strTemp[0]).intValue(), Integer.valueOf(strTemp[1]).intValue() - 1, Integer.valueOf(strTemp[2]).intValue(), 23, 59, 59);
 	    }
 	    return String.valueOf(cal.getTimeInMillis());
@@ -96,7 +96,7 @@ public class DateUtis2 {
 	  
 	  public static String getTimeInFormat1(String strDate)
 	  {
-	    if ((strDate.equals("")) || (strDate.isEmpty()) || (strDate == null)) {
+	    if (("".equals(strDate)) || (strDate.isEmpty()) || (strDate == null)) {
 	      return "0";
 	    }
 	    String[] strTemp = strDate.split("-", 0);
@@ -109,7 +109,7 @@ public class DateUtis2 {
 	  
 	  public static String getTimeInFormat(String strDate)
 	  {
-	    if ((strDate.equals("")) || (strDate.isEmpty()) || (strDate == null) || (strDate.length() != 8)) {
+	    if (("".equals(strDate)) || (strDate.isEmpty()) || (strDate == null) || (strDate.length() != 8)) {
 	      return "0";
 	    }
 	    String[] strTemp = new String[3];

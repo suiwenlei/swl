@@ -6,6 +6,7 @@ public class DistributedLockTest {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		for (int i = 0; i < 10; i++) {
 			new Thread() {
+				@Override
 				public void run() {
 					try {
 						DistributedLock lock = new ZookeeperLock(

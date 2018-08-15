@@ -1,27 +1,28 @@
 package com.leidengyun.sjptn.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.leidengyun.mvc.model.Pagination;
 import com.leidengyun.mvc.service.mybatis.impl.ServiceImpl;
 import com.leidengyun.mvc.util.StringUtils;
 import com.leidengyun.sjptn.dao.DevDataAppDao;
 import com.leidengyun.sjptn.model.DevDataApp;
 import com.leidengyun.sjptn.service.DevDataAppService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service("devDataAppService")
 public class DevDataAppServiceImpl extends ServiceImpl<DevDataAppDao, DevDataApp, Integer> implements DevDataAppService {
 		
+	@Override
 	@Autowired
 	public void setDao(DevDataAppDao dao) {
 		this.dao = dao;
 	}
 	
+	@Override
 	public void save(DevDataApp t) {
 		super.save(t);
 	}

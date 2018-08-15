@@ -111,7 +111,7 @@ public class ExcelUtils {
 	private static Workbook createWorkbook(String fileExtension, InputStream in)
 			throws IOException {
 		Workbook workbook = null;
-		if (fileExtension.equals("xlsx")) { // 2007版excel
+		if ("xlsx".equals(fileExtension)) { // 2007版excel
 			if (in != null) {
 				workbook = new XSSFWorkbook(in);
 			} else {
@@ -161,8 +161,9 @@ public class ExcelUtils {
 		for (int i = beginRow; i <= endRow; i++) {
 			// 获取工作表中的某一行
 			row = sheet.getRow(i);
-			if (row == null)
+			if (row == null) {
 				continue;
+			}
 
 			// 验证起始列是否符合标准
 			if (beginColumn < 0) {
@@ -194,8 +195,9 @@ public class ExcelUtils {
 			for (int j = beginColumn, index = 0; j < endColumn
 					&& index < fieldNames.length; j++, index++) {
 				Cell cell = row.getCell(j);
-				if (cell == null)
+				if (cell == null) {
 					continue;
+				}
 				String propertyName = fieldNames[index];
 				try {
 					Object value = getCellValue(cell,
@@ -471,8 +473,9 @@ public class ExcelUtils {
 							+ "." + fieldNames[columnIndex]
 							+ " cannot be accessed!", e);
 				}
-				if (value == null)
+				if (value == null) {
 					continue;
+				}
 
 				Cell cell = row.createCell(columnIndex);
 				if (propertyType == Boolean.class) {
@@ -632,7 +635,7 @@ public class ExcelUtils {
 			for (PropertyDescriptor property : propertyDescriptors) {
 				String key = property.getName();
 				// 过滤class属性
-				if (!key.equals("class")) {
+				if (!"class".equals(key)) {
 					fieldNames[i++] = key;
 				}
 			}

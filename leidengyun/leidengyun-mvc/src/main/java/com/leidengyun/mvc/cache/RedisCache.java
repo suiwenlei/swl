@@ -1,9 +1,5 @@
 package com.leidengyun.mvc.cache;
 
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 import com.leidengyun.mvc.exception.CacheException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +7,10 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class RedisCache<T> {
 
@@ -80,8 +80,9 @@ public class RedisCache<T> {
 		try {
 			SetOperations<String, T> valueOps = redisTemplate.opsForSet();
 			valueOps.add(key, value);
-			if (time > 0)
+			if (time > 0) {
 				redisTemplate.expire(key, time, TimeUnit.SECONDS);
+			}
 		}
 		catch (Throwable t) {
 			LOGGER.error("setSet key [{}] exception!", key, t);
@@ -100,8 +101,9 @@ public class RedisCache<T> {
 		try {
 			SetOperations<String, T> setOps = redisTemplate.opsForSet();
 			setOps.add(key, (T[]) v.toArray());
-			if (time > 0)
+			if (time > 0) {
 				redisTemplate.expire(key, time, TimeUnit.SECONDS);
+			}
 		}
 		catch (Throwable t) {
 			LOGGER.error("setSet key [{}] exception!", key, t);
@@ -132,8 +134,9 @@ public class RedisCache<T> {
 		try {
 			ListOperations<String, T> listOps = redisTemplate.opsForList();
 			listOps.rightPush(key, v);
-			if (time > 0)
+			if (time > 0) {
 				redisTemplate.expire(key, time, TimeUnit.SECONDS);
+			}
 		}
 		catch (Throwable t) {
 			LOGGER.error("setList key [{}] exception!", key, t);
@@ -147,8 +150,9 @@ public class RedisCache<T> {
 		try {
 			ListOperations<String, T> listOps = redisTemplate.opsForList();
 			listOps.rightPushAll(key, v);
-			if (time > 0)
+			if (time > 0) {
 				redisTemplate.expire(key, time, TimeUnit.SECONDS);
+			}
 		}
 		catch (Throwable t) {
 			LOGGER.error("setList key [{}] exception!", key, t);

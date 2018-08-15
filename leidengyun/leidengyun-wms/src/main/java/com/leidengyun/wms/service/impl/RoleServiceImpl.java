@@ -23,30 +23,37 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role, Integer> impleme
 	@Resource
 	private RolePermissionService rolePermissionService;
 
+	@Override
 	@Autowired
 	public void setDao(RoleDao dao) {
 		this.dao = dao;
 	}
 
+	@Override
 	public void enable(Boolean isEnable, List<Integer> idList) {
 		verifyRows(dao.enable(isEnable, idList), idList.size(), "角色数据库更新失败");
 	}
 
+	@Override
 	public void save(Role t) {
 		super.save(t);
 	}
 
+	@Override
 	public Pagination<Role> findPaginationByName(String name, Integer appId, Pagination<Role> p) {
 		dao.findPaginationByName(name, null, appId, p);
 		return p;
 	}
 
+	@Override
 	public List<Role> findByAppId(Boolean isEnable, Integer appId) {
-		if (appId == null)
+		if (appId == null) {
 			return new ArrayList<Role>(0);
+		}
 		return dao.findPaginationByName(null, isEnable, appId, null);
 	}
 
+	@Override
 	@Transactional
 	public void deleteById(List<Integer> idList) {
 		userRoleService.deleteByRoleIds(idList);
@@ -54,6 +61,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role, Integer> impleme
 		verifyRows(dao.deleteById(idList), idList.size(), "角色数据库删除失败");
 	}
 
+	@Override
 	public void deleteByAppIds(List<Integer> idList) {
 		dao.deleteByAppIds(idList);
 	}

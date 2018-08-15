@@ -1,23 +1,20 @@
 package com.leidengyun.socket.processor;
 
+import com.leidengyun.socket.business.GprsPacket;
+import org.apache.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import org.apache.log4j.Logger;
-
-import com.leidengyun.socket.business.Gprs_Packet;
-
 public class ThreadInputStream implements Runnable {
-
 	private static Logger logger = Logger.getLogger(ThreadInputStream.class);
 	private static final int buffer_size = 1024;
 	Socket socket;
 	DataInputStream input;
 	PrintWriter out;
-
 	public ThreadInputStream(Socket socket) {
 		this.socket = socket;
 	}
@@ -27,7 +24,7 @@ public class ThreadInputStream implements Runnable {
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
-
+	@Override
 	public void run() {
 		byte[] buff = new byte[buffer_size];
 		try {
@@ -38,7 +35,7 @@ public class ThreadInputStream implements Runnable {
 				if (this.input != null) {
 					try {
 						len = this.input.read(buff);
-						int parse = Gprs_Packet.Gprs_PacketParse(buff, len);
+						int parse = GprsPacket.gprsPacketParse(buff, len);
 						switch (parse) {
 						case 0:
 							this.out.write("PAROK");
@@ -68,17 +65,18 @@ public class ThreadInputStream implements Runnable {
 			close();
 		}
 	}
-	//关闭流
+	/**
+	 * 关闭流
+	 */
 	public void close() {
 		try {
 			if ((this.input != null) && (this.out != null) && (!this.socket.isClosed())) {
 				this.input.close();
+				this.out.close();
+				this.socket.close();
 			}
-			this.out.close();
-			this.socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

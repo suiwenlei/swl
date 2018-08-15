@@ -53,6 +53,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	
 	private static final Logger logger = LoggerFactory.getLogger(ScheduleJobServiceImpl.class);
 	
+	@Override
 	@Autowired
 	public void setDao(ScheduleJobDao dao) {
 		this.dao = dao;
@@ -64,6 +65,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * 
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void updateCron(Integer jobId, String cron) throws SchedulerException {
 		ScheduleJob job = get(jobId);
 		if (job == null) {
@@ -82,6 +84,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void addJob(ScheduleJob job) throws SchedulerException {
 		if (job == null || !ConfigServlet.STATUS_RUNNING.equals(job.getIsEnable())) {
 			return;
@@ -133,6 +136,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @return
 	 * @throws SchedulerException
 	 */
+	@Override
 	public List<ScheduleJob> getAllJob() throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		GroupMatcher<JobKey> matcher = GroupMatcher.anyJobGroup();
@@ -167,6 +171,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @return
 	 * @throws SchedulerException
 	 */
+	@Override
 	public List<ScheduleJob> getRunningJob() throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		List<JobExecutionContext> executingJobs = scheduler.getCurrentlyExecutingJobs();
@@ -200,6 +205,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void pauseJob(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
@@ -212,6 +218,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void resumeJob(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
@@ -224,6 +231,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void deleteJob(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
@@ -237,6 +245,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void runAJobNow(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 		JobKey jobKey = JobKey.jobKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
@@ -249,6 +258,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @param scheduleJob
 	 * @throws SchedulerException
 	 */
+	@Override
 	public void updateJobCron(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler =  getSchedulerFactory().getScheduler();
 
@@ -279,6 +289,7 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 	 * @date 2016-9-20 上午10:02:11
 	 * @return
 	 */
+	@Override
 	public Map validateJob(ScheduleJob scheduleJob) {
 		String flag="false";
 		String msg="";
@@ -339,10 +350,12 @@ public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, Schedule
 		return p;
 	}
 	
+	@Override
 	public void deleteById(List<Integer> idList){
 		dao.deleteById(idList);
 	}
 	
+	@Override
 	public void enable(Boolean isEnable, List<Integer> idList) {
 		verifyRows(dao.enable(isEnable, idList), idList.size(), "定时任务数据库更新失败");
 	}
