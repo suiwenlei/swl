@@ -1,18 +1,5 @@
 package com.leidengyun.sjptn.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSONArray;
 import com.leidengyun.mvc.model.Pagination;
 import com.leidengyun.mvc.service.mybatis.impl.ServiceImpl;
@@ -25,6 +12,12 @@ import com.leidengyun.sjptn.model.TitleModel;
 import com.leidengyun.sjptn.service.DevDataAppService;
 import com.leidengyun.sjptn.service.DevDataService;
 import com.leidengyun.sjptn.service.InsTDataService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.*;
 
 @Service("devDataService")
 public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer> implements DevDataService {
@@ -195,14 +188,16 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 		}
 		List<Map> rslList = new ArrayList<Map>();
 		Map<String, Object> rsmap=new HashMap<>();
-		rsmap.put("NameArray", rs);
-		rsmap.put("TypeArray", rs1);
+		rsmap.put("NameArray", rs.toString());
+		rsmap.put("TypeArray", rs1.toString());
 		rslList.add(rsmap);
 		
 		if(rslList.size()>0 && rslList !=null){
 			map = rslList.get(0);
-			String[] Narray = NameArray.split("@");
-			String[] Tarray = TypeArray.split("@");
+			String NAR=(String)map.get("NameArray");
+			String TAR=(String)map.get("TypeArray");
+			String[] Narray =NAR.split("@");
+			String[] Tarray = TAR.split("@");
 			List _nList = Arrays.asList(Narray);
 			List _tList = Arrays.asList(Tarray);
 			List nList = new ArrayList(_nList);
