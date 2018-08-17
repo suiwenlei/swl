@@ -104,7 +104,8 @@ public class GprsPacket {
 			StringBuilder devValueArray = new StringBuilder();
 			StringBuilder devNameArray = new StringBuilder();
 			while (n < len3) {
-				int address = gprsRxBuf[(14 + n++)];
+				//解析地址
+				String address = Integer.toHexString(gprsRxBuf[(14 + n++)]);
 				String typeStr = Integer.toHexString(gprsRxBuf[(14 + n)] << 8 | gprsRxBuf[(14 + n + 1)]);
 				String type = newStringUtil.addZeroForNum(typeStr, 4);
 				n += 2;
