@@ -97,7 +97,7 @@ public class LineDataServiceImpl  implements LineDataService {
 		
 		Map legendMap = new HashMap<String,Double>();
 		try {
-			List<Map> titleList = devDataService.getTitleList(devId, qsrq, zzrq);
+			List<Map> titleList = devDataService.getTitleList(devId,"", qsrq, zzrq);
 			if(titleList.size()>0 && titleList !=null){
 				Map<String, Object> map = titleList.get(0);
 				legList.add(map.get("NameArray").toString());

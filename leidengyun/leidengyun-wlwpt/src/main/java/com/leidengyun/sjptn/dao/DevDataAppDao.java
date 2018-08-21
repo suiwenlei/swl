@@ -17,8 +17,14 @@ public interface DevDataAppDao extends Dao<DevDataApp, Integer> {
 	
 	//删除数据
 	public int deleteByIds(@Param("idList") List<String> idList);
-	public List<DevDataApp> findPaginationByDevId(@Param("devId") String devId, @Param("qsrq") String qsrq,
-			@Param("zzrq") String zzrq, Pagination<DevDataApp> p);
+	public List<DevDataApp> findPaginationByDevId(
+			@Param("devId") String devId,
+			@Param("type") String type,
+			@Param("condition") String condition,
+			@Param("qsrq") String qsrq,
+			@Param("zzrq") String zzrq,
+			Pagination<DevDataApp> p
+	);
 	public List<DevDataApp> findDevDataAppList(@Param("devId") Integer devId, @Param("qsrq") String qsrq,
 			@Param("zzrq") String zzrq);
 }

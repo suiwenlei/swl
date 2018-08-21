@@ -99,7 +99,7 @@
 								var gson='${gsonTitle}';
 								var gsonTitle=eval("(" +gson+ ")");
 					    		var $table = $("#_table").table({
-					    			url : "${_path}/sjpt/data/list?devId=${devId}",
+					    			url : "${_path}/sjpt/data/list?type=${type}&devId=${devId}",
 					    			formId : "_form",
 									tools : [
 															   

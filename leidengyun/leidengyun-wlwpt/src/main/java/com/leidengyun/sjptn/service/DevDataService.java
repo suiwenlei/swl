@@ -30,7 +30,7 @@ public interface DevDataService extends Service<DevData, Integer> {
 	 * @param devId
 	 * @return
 	 */
-	public String gsonDataTitle(Integer devId,String qsrq,String zzrq);
+	public String gsonDataTitle(Integer devId,String type,String qsrq,String zzrq);
 	
 	public void deleteByIds(List<String> idList);
 	
@@ -51,7 +51,13 @@ public interface DevDataService extends Service<DevData, Integer> {
 	 * @param zzrq
 	 * @return
 	 */
-	public List<Map> getTitleList(Integer devId, String qsrq, String zzrq);
-	
+	public List<Map> getTitleList(Integer devId,String type,String qsrq, String zzrq);
 
+	/**
+	 * 根据devID TYPE 获取最新的表头
+	 * @param devId
+	 * @param type
+	 * @return
+	 */
+	public String getLastCondition(Integer devId);
 }

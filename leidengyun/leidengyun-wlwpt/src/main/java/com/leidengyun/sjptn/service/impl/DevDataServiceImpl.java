@@ -52,7 +52,7 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	}
 	
 	@Override
-	public Pagination<DevData> findPaginationByDevId(String devId, String qsrq, String zzrq, Pagination<DevData> p) {
+	public Pagination<DevData> findPaginationByDevId(String devId,String qsrq, String zzrq, Pagination<DevData> p) {
 		
 		List<DevData> list = p.getList();
 		Map<String, Object> dataMap = new HashMap();
@@ -99,13 +99,13 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	}
 
 	@Override
-	public String gsonDataTitle(Integer devId,String qsrq,String zzrq) {
+	public String gsonDataTitle(Integer devId,String type,String qsrq,String zzrq) {
 	
 		Map<String, Object> map=null;
 		String NameArray = "";
 		String TypeArray = "";
 		try {
-			List<Map> list = getTitleList(devId, qsrq, zzrq);
+			List<Map> list = getTitleList(devId,type,qsrq, zzrq);
 			if(list.size()>0 && list!=null){
 				map=list.get(0);
 			}
@@ -132,6 +132,8 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 			NameArray=map.get("NameArray") == null ? "" : map.get("NameArray").toString();
 			TypeArray=map.get("TypeArray") == null ? "" : map.get("TypeArray").toString();
 		}
+
+
 		if (!StringUtils.isBlank(TypeArray)) {
 			String[] Narray = NameArray.split("@");
 			String[] Tarray = TypeArray.split("@");
@@ -156,68 +158,102 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	}
 
 	@Override
-	public List<Map> getTitleList(Integer devId, String qsrq, String zzrq) {
+	public List<Map> getTitleList(Integer devId,String type, String qsrq, String zzrq) {
 		// TODO Auto-generated method stub
 		
 		List<Map> reslList = new ArrayList<Map>();
 		Map<String, Object> map=null;
 		String NameArray = "";
 		String TypeArray = "";
-		
-		//需要做缓存处理当前数据,目前速度较慢
-		String sql = " "
-				+ "SELECT  devNameArray NameArray ,"
-				+ "devTypeArray TypeArray  FROM sys_device_data t "
-				+ "where t.devId='"+devId+"' group by devNameArray,devTypeArray order by id desc  ";
-		List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
-		StringBuilder rs = new  StringBuilder();
-		StringBuilder rs1 = new  StringBuilder();
-		for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-			Map<String, Object> map2 = (Map<String, Object>) iterator.next();
-			
-			NameArray=map2.get("NameArray") == null ? "" : 
-				map2.get("NameArray").toString();
-			TypeArray=map2.get("TypeArray") == null ? "" : 
-				map2.get("TypeArray").toString();
-			
-			rs.append(NameArray);
-			rs.append("@");
-			rs1.append(TypeArray);
-			rs1.append("@");
-			
-		}
-		List<Map> rslList = new ArrayList<Map>();
-		Map<String, Object> rsmap=new HashMap<>();
-		rsmap.put("NameArray", rs.toString());
-		rsmap.put("TypeArray", rs1.toString());
-		rslList.add(rsmap);
-		
-		if(rslList.size()>0 && rslList !=null){
-			map = rslList.get(0);
-			String NAR=(String)map.get("NameArray");
-			String TAR=(String)map.get("TypeArray");
-			String[] Narray =NAR.split("@");
-			String[] Tarray = TAR.split("@");
-			List _nList = Arrays.asList(Narray);
-			List _tList = Arrays.asList(Tarray);
-			List nList = new ArrayList(_nList);
-			List tList = new ArrayList(_tList);
-			StringUtis.removeDuplicate(nList);
-			StringUtis.removeDuplicate(tList);
-			StringBuilder nN = new  StringBuilder();
-			StringBuilder tN = new  StringBuilder();
-			for (Object nName : nList) {
-				nN.append(nName);
-				nN.append("@");
+
+
+		if("2".equals(type)){
+			//需要做缓存处理当前数据,目前速度较慢
+			String sql = " "
+					+ "SELECT  devNameArray NameArray ,"
+					+ "devTypeArray TypeArray  FROM sys_device_data t "
+					+ "where t.devId='"+devId+"' group by devNameArray,devTypeArray order by id desc  ";
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
+			StringBuilder rs = new  StringBuilder();
+			StringBuilder rs1 = new  StringBuilder();
+			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
+				Map<String, Object> map2 = (Map<String, Object>) iterator.next();
+
+				NameArray=map2.get("NameArray") == null ? "" :
+						map2.get("NameArray").toString();
+				TypeArray=map2.get("TypeArray") == null ? "" :
+						map2.get("TypeArray").toString();
+
+				rs.append(NameArray);
+				rs.append("@");
+				rs1.append(TypeArray);
+				rs1.append("@");
+
 			}
-			for (Object tName : tList) {
-				tN.append(tName);
-				tN.append("@");
+			List<Map> rslList = new ArrayList<Map>();
+			Map<String, Object> rsmap=new HashMap<>();
+			rsmap.put("NameArray", rs.toString());
+			rsmap.put("TypeArray", rs1.toString());
+			rslList.add(rsmap);
+
+			if(rslList.size()>0 && rslList !=null){
+				map = rslList.get(0);
+				String NAR=(String)map.get("NameArray");
+				String TAR=(String)map.get("TypeArray");
+				String[] Narray =NAR.split("@");
+				String[] Tarray = TAR.split("@");
+				List _nList = Arrays.asList(Narray);
+				List _tList = Arrays.asList(Tarray);
+				List nList = new ArrayList(_nList);
+				List tList = new ArrayList(_tList);
+				StringUtis.removeDuplicate(nList);
+				StringUtis.removeDuplicate(tList);
+				StringBuilder nN = new  StringBuilder();
+				StringBuilder tN = new  StringBuilder();
+				for (Object nName : nList) {
+					nN.append(nName);
+					nN.append("@");
+				}
+				for (Object tName : tList) {
+					tN.append(tName);
+					tN.append("@");
+				}
+				map.put("NameArray", nN);
+				map.put("TypeArray", tN);
 			}
-			map.put("NameArray", nN);
-			map.put("TypeArray", tN);
+			reslList.add(map);
+
+		}else if("1".equals(type)){
+
+			String sql =
+					" SELECT  distinct max(devTime),devNameArray NameArray,devTypeArray TypeArray " +
+                            " FROM sys_device_data t where t.devId='"+devId+"' order by devTime desc  ";
+			List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
+
+			Map<String, Object> rsmap=new HashMap<>();
+			if(list.size()>0 && list !=null){
+				Map map_last=list.get(0);
+				String NameArray_last=map_last.get("NameArray") == null ? "" :
+						map_last.get("NameArray").toString();
+				String TypeArray_last=map_last.get("TypeArray") == null ? "" :
+						map_last.get("TypeArray").toString();
+				rsmap.put("NameArray", NameArray_last);
+				rsmap.put("TypeArray", TypeArray_last);
+				reslList.add(rsmap);
+			}
 		}
-		reslList.add(map);
 		return reslList;
-	}	
+	}
+
+
+	public String getLastCondition(Integer devId){
+	    String title="";
+		List<Map> list= getTitleList(devId,"1", "", "");
+		if(list.size()>0 && list !=null) {
+			Map map = list.get(0);
+			title = map.get("TypeArray") == null ? "" :
+					map.get("TypeArray").toString();
+		}
+		return title;
+	}
 }

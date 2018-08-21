@@ -16,15 +16,23 @@
 			AND a.devId = #{devId}
 		</if>
 		<if test="qsrq != null and qsrq != '' ">
-            AND a.devTime &gt;=#{qsrq}
+			AND a.devTime &gt;=#{qsrq}
 		</if>
 		<if test="zzrq != null and zzrq != '' ">
-		    AND a.devTime &lt;#{zzrq}
+			AND a.devTime &lt;#{zzrq}
 		</if>
+
+		<if test="type == 1 ">
+			AND a.devTypeArray=#{condition}
+		</if>
+		<if test="type == 2 ">
+			AND a.devTypeArray !=#{condition}
+		</if>
+
 		ORDER BY a.devTime DESC
 	</select>
-		
-	
+
+
 	<select id="findDevDataAppList" parameterType="Map"
 		resultType="DevDataApp">
 		SELECT id,devID,loVolt,devTime,devTypeArray,devNameArray,devValueArray
@@ -41,10 +49,10 @@
 		</if>
 		ORDER BY a.devTime DESC
 	</select>
-	
-	
+
+
 	<delete id="deleteByIds" parameterType="map" statementType="PREPARED">
-		DELETE FROM sys_device_data 
+		DELETE FROM sys_device_data
 		WHERE 1 = 1
 		<if test="idList != null">
 			AND id in <foreach collection="idList" item="item" open="(" separator="," close=")">#{item}</foreach>

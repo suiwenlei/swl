@@ -6,9 +6,11 @@ import com.leidengyun.mvc.util.StringUtils;
 import com.leidengyun.sjptn.dao.DevDataAppDao;
 import com.leidengyun.sjptn.model.DevDataApp;
 import com.leidengyun.sjptn.service.DevDataAppService;
+import com.leidengyun.sjptn.service.DevDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +29,19 @@ public class DevDataAppServiceImpl extends ServiceImpl<DevDataAppDao, DevDataApp
 		super.save(t);
 	}
 
+
+	@Resource
+	DevDataService devDataService;
+
 	@Override
-	public Pagination<DevDataApp> findPaginationByDevId(String devId, String qsrq, String zzrq,
+	public Pagination<DevDataApp> findPaginationByDevId(String devId,String type,String qsrq, String zzrq,
 			Pagination<DevDataApp> p) {
 		// TODO Auto-generated method stub
-		dao.findPaginationByDevId(devId, qsrq, zzrq, p);
-		
-		
+
+		//type : 1 最新的设备数据   2 历史设备数据
+		String condition= devDataService.getLastCondition(Integer.valueOf(devId));
+		dao.findPaginationByDevId(devId,type,condition, qsrq, zzrq, p);
 		List<DevDataApp> list = p.getList();
-		
 		String ValueArray = "";
 		String TypeArray = "";
 
