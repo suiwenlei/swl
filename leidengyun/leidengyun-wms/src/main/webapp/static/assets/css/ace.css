@@ -1185,7 +1185,7 @@ pre.prettyprint {
   height: 100%;
   width: auto;
   min-width: 50px;
-  padding: 0 8px;
+  padding: 1px 9px;
   position: relative;
 }
 .ace-nav > li > a > .ace-icon {
@@ -1575,7 +1575,7 @@ pre.prettyprint {
   vertical-align: top;
   line-height: 15px;
   position: relative;
-  top: 6px;
+  top: 13px;
 }
 .user-info small {
   display: block;

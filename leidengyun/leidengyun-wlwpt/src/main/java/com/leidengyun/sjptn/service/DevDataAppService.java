@@ -22,6 +22,6 @@ public interface DevDataAppService extends Service<DevDataApp, Integer> {
 	 */
 	public Pagination<DevDataApp> findPaginationByDevId(String devId,String type,String qsrq,String zzrq,Pagination<DevDataApp> p);
 	public void deleteByIds(List<String> idList);
-	public List<DevDataApp> findDevDataAppList(Integer devId, String qsrq, String zzrq);
+	public List<DevDataApp> findDevDataAppList(Integer devId, String type,String qsrq, String zzrq);
 	
 }

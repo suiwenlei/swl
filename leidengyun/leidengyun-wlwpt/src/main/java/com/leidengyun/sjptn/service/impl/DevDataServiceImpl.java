@@ -1,9 +1,21 @@
 package com.leidengyun.sjptn.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONArray;
 import com.leidengyun.mvc.model.Pagination;
 import com.leidengyun.mvc.service.mybatis.impl.ServiceImpl;
 import com.leidengyun.mvc.util.StringUtils;
+import com.leidengyun.sjptn.common.SortList;
 import com.leidengyun.sjptn.common.StringUtis;
 import com.leidengyun.sjptn.dao.DevDataDao;
 import com.leidengyun.sjptn.model.DevData;
@@ -12,12 +24,6 @@ import com.leidengyun.sjptn.model.TitleModel;
 import com.leidengyun.sjptn.service.DevDataAppService;
 import com.leidengyun.sjptn.service.DevDataService;
 import com.leidengyun.sjptn.service.InsTDataService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.*;
 
 @Service("devDataService")
 public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer> implements DevDataService {
@@ -30,7 +36,7 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 	@Resource
 	DevDataAppService devDataAppService;
 	
-	
+	private String[] indexXh = { "a-", "c-", "b-" };
 	private String[] indexArray = { "id", "devTime", "loVolt" };
 	private String[] nameArray = { "标识", "采集时间", "电池电压" };
 	
@@ -124,6 +130,7 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 			model.setMobileHide(false);
 			model.setField(indexArray[i]);
 			model.setTitle(nameArray[i]);
+			model.setTypeArray(indexXh[i]);
 			modelList.add(model);
 		}
 		
@@ -138,15 +145,19 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 			String[] Narray = NameArray.split("@");
 			String[] Tarray = TypeArray.split("@");
 			for (int i = 0; i < Tarray.length; i++) {
-
 				TitleModel model = new TitleModel();
 				model.setHide(false);
 				model.setMobileHide(false);
 				model.setField("object." + Tarray[i]);
 				model.setTitle(Narray[i]);
+				model.setTypeArray(Tarray[i]);
 				modelList.add(model);
 			}
-		} 
+		}
+		if("2".equals(type)){ //只有历史数据需要排序
+			SortList<TitleModel> sortList = new SortList<TitleModel>();  
+	        sortList.Sort(modelList, "getTypeArray", "desc"); 
+		}
 		String JsonTitle = JSONArray.toJSONString(modelList);
 		return JsonTitle;
 	}
@@ -169,67 +180,26 @@ public class DevDataServiceImpl extends ServiceImpl<DevDataDao, DevData, Integer
 
 		if("2".equals(type)){
 			//需要做缓存处理当前数据,目前速度较慢
-			String sql = " "
-					+ "SELECT  devNameArray NameArray ,"
-					+ "devTypeArray TypeArray  FROM sys_device_data t "
-					+ "where t.devId='"+devId+"' group by devNameArray,devTypeArray order by id desc  ";
+			String sql = "select * from sys_dev_title t where t.devId='"+devId+"' and t.type='"+type+"' ";
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
-			StringBuilder rs = new  StringBuilder();
-			StringBuilder rs1 = new  StringBuilder();
-			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-				Map<String, Object> map2 = (Map<String, Object>) iterator.next();
-
-				NameArray=map2.get("NameArray") == null ? "" :
-						map2.get("NameArray").toString();
-				TypeArray=map2.get("TypeArray") == null ? "" :
-						map2.get("TypeArray").toString();
-
-				rs.append(NameArray);
-				rs.append("@");
-				rs1.append(TypeArray);
-				rs1.append("@");
-
-			}
-			List<Map> rslList = new ArrayList<Map>();
 			Map<String, Object> rsmap=new HashMap<>();
-			rsmap.put("NameArray", rs.toString());
-			rsmap.put("TypeArray", rs1.toString());
-			rslList.add(rsmap);
-
-			if(rslList.size()>0 && rslList !=null){
-				map = rslList.get(0);
-				String NAR=(String)map.get("NameArray");
-				String TAR=(String)map.get("TypeArray");
-				String[] Narray =NAR.split("@");
-				String[] Tarray = TAR.split("@");
-				List _nList = Arrays.asList(Narray);
-				List _tList = Arrays.asList(Tarray);
-				List nList = new ArrayList(_nList);
-				List tList = new ArrayList(_tList);
-				StringUtis.removeDuplicate(nList);
-				StringUtis.removeDuplicate(tList);
-				StringBuilder nN = new  StringBuilder();
-				StringBuilder tN = new  StringBuilder();
-				for (Object nName : nList) {
-					nN.append(nName);
-					nN.append("@");
-				}
-				for (Object tName : tList) {
-					tN.append(tName);
-					tN.append("@");
-				}
-				map.put("NameArray", nN);
-				map.put("TypeArray", tN);
+			if(list.size()>0 && list !=null){
+				Map map_last=list.get(0);
+				String NameArray_last=map_last.get("NameArray") == null ? "" :
+						map_last.get("NameArray").toString();
+				String TypeArray_last=map_last.get("TypeArray") == null ? "" :
+						map_last.get("TypeArray").toString();
+				rsmap.put("NameArray", NameArray_last);
+				rsmap.put("TypeArray", TypeArray_last);
+				reslList.add(rsmap);
 			}
 			reslList.add(map);
+			
 
 		}else if("1".equals(type)){
 
-			String sql =
-					" SELECT  distinct max(devTime),devNameArray NameArray,devTypeArray TypeArray " +
-                            " FROM sys_device_data t where t.devId='"+devId+"' order by devTime desc  ";
+			String sql = "select * from sys_dev_title t where t.devId='"+devId+"' and t.type='"+type+"' ";
 			List<Map<String,Object>> list = jdbcTemplate.queryForList(sql);
-
 			Map<String, Object> rsmap=new HashMap<>();
 			if(list.size()>0 && list !=null){
 				Map map_last=list.get(0);

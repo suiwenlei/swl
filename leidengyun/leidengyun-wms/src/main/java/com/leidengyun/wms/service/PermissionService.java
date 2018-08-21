@@ -43,4 +43,16 @@ public interface PermissionService extends Service<Permission, Integer> {
 	 * @return
 	 */
 	public List<RpcPermission> findListById(String appCode, Integer userId);
+
+
+	public void deletePermissionByPId(Integer pid);
+	
+	/**
+	 * 
+	 * @param name
+	 * @param appId
+	 * @param isEnable
+	 * @return
+	 */
+	public List<Permission> findByParentId(Integer pid, Integer appId);
 }

@@ -1,6 +1,7 @@
 package com.leidengyun.common;
 
 import java.text.NumberFormat;
+import java.util.*;
 
 public class StringUtis {
 
@@ -9,5 +10,19 @@ public class StringUtis {
 			return "-";
 		}
 		return NumberFormat.getInstance().format(num*magNitude);
+	}
+
+
+	public static void removeDuplicate(List list) {
+		Set set = new HashSet();
+        List newList = new ArrayList();
+        for (Iterator iter = list.iterator(); iter.hasNext();) {
+            Object element = iter.next();
+            if (set.add(element)) {
+				newList.add(element);
+			}
+        }
+        list.clear();
+        list.addAll(newList);
 	}
 }

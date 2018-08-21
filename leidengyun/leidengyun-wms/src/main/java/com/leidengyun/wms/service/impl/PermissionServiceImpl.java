@@ -79,4 +79,13 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionDao, Permission
 	public List<RpcPermission> findListById(String appCode, Integer userId) {
 		return dao.findListById(appCode, userId);
 	}
+	@Override
+	public void deletePermissionByPId(Integer pid){
+		 dao.deletePermissionByPId(pid);
+	}
+
+	@Override
+	public List<Permission> findByParentId(Integer pid, Integer appId) {
+		return dao.findByParentId(pid, appId);
+	}
 }

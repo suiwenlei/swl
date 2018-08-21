@@ -84,6 +84,7 @@ public class UserDevController extends BaseController {
 		
 		//2.将新的菜单配置项插入权限表中
 		Permission permission;
+		Permission permission_ls;
 		if(null!=appList && devIds !=""){
 			for (Integer appId : appList) {
 				permission = new Permission();
@@ -96,19 +97,44 @@ public class UserDevController extends BaseController {
 				permission.setSort(1);
 				permission.setIsMenu(true);
 				permission.setIsEnable(true);
+
+
+				permission_ls = new Permission();
+				permission_ls.setId(null);
+				permission_ls.setParentId(null);
+				permission_ls.setAppId(appId);
+				permission_ls.setIcon(ConfigServlet.MEUN_ICON_ls);
+				permission_ls.setName(ConfigServlet.MEUN_NAME_ls);
+				permission_ls.setUrl(ConfigServlet.MEUN_URL_ls);
+				permission_ls.setSort(2);
+				permission_ls.setIsMenu(true);
+				permission_ls.setIsEnable(true);
+
 				
 				List<Permission> list1 = permissionService.findByName(ConfigServlet.MEUN_NAME, appId, true);
-				if(list1 !=null){
+				if(list1 !=null && list1.size()>0){
 					for (Permission p : list1) {
 						permissionService.update(p);
 					}
 				}else{
 					permissionService.save(permission);
 				}
+
+				/*历史数据*/
+				List<Permission> list1_ls = permissionService.findByName(ConfigServlet.MEUN_NAME_ls, appId, true);
+				if(list1_ls !=null && list1_ls.size()>0){
+					for (Permission p : list1_ls) {
+						permissionService.update(p);
+					}
+				}else {
+					permissionService.save(permission_ls);
+				}
+
 				
 				List<Permission> plist = permissionService.
 				findByName(permission.getName(), permission.getAppId(), true);
 				if(idList !=null && idList.get(0) !=null){
+					int index=1;
 					for (Integer devId : idList) {
 						permission = new Permission();
 						permission.setId(null);
@@ -119,17 +145,57 @@ public class UserDevController extends BaseController {
 						permission.setUrl(ConfigServlet.MEUN_SUB_URL+devService.get(devId).getDevId());
 						permission.setIsMenu(true);
 						permission.setIsEnable(true);
+						permission.setSort(index);
 						
 						if(null !=devId){
-							List<Permission> list = permissionService.findByName(devService.get(devId).getDevId(), appId, true);
+							List<Permission> list = permissionService.findByParentId(plist.get(0).getId(),appId);
+							int dex=1;
 							if(list != null && list.size()>0){
 								for (Permission p : list) {
+									p.setSort(dex);
 									permissionService.update(p);
+									dex++;
 								}
 							}else{
 								permissionService.save(permission);
 							}
 						}
+						index++;
+					}
+				}
+
+
+				List<Permission> plist_ls = permissionService.
+						findByName(permission_ls.getName(), permission_ls.getAppId(), true);
+				
+				
+				if(idList !=null && idList.get(0) !=null){
+					int index=1;
+					for (Integer devId : idList) {
+						permission_ls = new Permission();
+						permission_ls.setId(null);
+						permission_ls.setParentId(plist_ls.get(0).getId());
+						permission_ls.setAppId(appId);
+						permission_ls.setIcon(ConfigServlet.MEUN_ICON_ls);
+						permission_ls.setName(devService.get(devId).getDevId());
+						permission_ls.setUrl(ConfigServlet.MEUN_SUB_URL_ls+devService.get(devId).getDevId());
+						permission_ls.setIsMenu(true);
+						permission_ls.setIsEnable(true);
+						permission_ls.setSort(index);
+						if(null !=devId){
+							List<Permission> list = permissionService.findByParentId(plist_ls.get(0).getId(),appId);
+							int dex=1;
+							if(list != null && list.size()>0){
+								for (Permission p : list) {
+									p.setSort(dex);
+									permissionService.update(p);
+									dex++;
+								}
+							}else{
+								permissionService.save(permission_ls);
+							}
+						}
+						index++;
 					}
 				}
 			}

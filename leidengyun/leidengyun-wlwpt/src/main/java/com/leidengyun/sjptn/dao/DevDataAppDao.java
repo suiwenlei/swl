@@ -25,6 +25,7 @@ public interface DevDataAppDao extends Dao<DevDataApp, Integer> {
 			@Param("zzrq") String zzrq,
 			Pagination<DevDataApp> p
 	);
-	public List<DevDataApp> findDevDataAppList(@Param("devId") Integer devId, @Param("qsrq") String qsrq,
+	public List<DevDataApp> findDevDataAppList(@Param("devId") Integer devId,@Param("type") String type,
+			@Param("condition") String condition, @Param("qsrq") String qsrq,
 			@Param("zzrq") String zzrq);
 }

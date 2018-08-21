@@ -68,9 +68,22 @@
 		<if test="isEnable != null and isEnable == true">
 			AND a.isEnable = #{isEnable}
 		</if>
-		ORDER BY a.sort DESC
+		ORDER BY a.sort,name DESC
 	</select>
-
+	
+	<select id="findByParentId" parameterType="map" resultType="Permission">
+		SELECT *
+		FROM SYS_PERMISSION a
+		WHERE 1 = 1
+		<if test="appId != null">
+			AND a.appId = #{appId}
+		</if>
+		<if test="pid != null">
+			AND parentId=#{pid}
+		</if>
+		ORDER BY name DESC
+	</select>
+	
 	<delete id="deleteById" parameterType="list" statementType="PREPARED">
 		DELETE FROM SYS_PERMISSION
 		<choose>
@@ -98,6 +111,16 @@
 				close=")">#{item}</foreach>
 		</if>
 	</delete>
+
+	<delete id="deletePermissionByPId" parameterType="map" statementType="PREPARED">
+		DELETE FROM SYS_PERMISSION
+		WHERE 1 = 1
+		<if test="pid != null">
+			AND parentId=#{pid}
+		</if>
+	</delete>
+
+
 
 	<select id="findListById" parameterType="map"
 		resultType="com.leidengyun.sso.rpc.RpcPermission">

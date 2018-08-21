@@ -46,6 +46,12 @@ public class ConfigServlet extends HttpServlet {
 	public static final String MEUN_URL = "/sjpt/data";
 	public static final String MEUN_SUB_URL = "/sjpt/data?devId=";
 	public static final String MEUN_ICON = "fa fa-list-alt";
+
+
+	public static final String MEUN_NAME_ls = "历史数据";
+	public static final String MEUN_URL_ls = "/sjpt/data/ls";
+	public static final String MEUN_SUB_URL_ls = "/sjpt/data/ls?devId=";
+	public static final String MEUN_ICON_ls = "fa-external-link";
 	
 	public static final Boolean STATUS_RUNNING = true;
 	public static final Boolean STATUS_NOT_RUNNING = false;

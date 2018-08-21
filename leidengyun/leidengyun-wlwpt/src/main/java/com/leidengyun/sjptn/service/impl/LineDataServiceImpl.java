@@ -63,7 +63,7 @@ public class LineDataServiceImpl  implements LineDataService {
 		List<Object> typeList = new ArrayList();
 		List<Object> legList = new ArrayList();
 		Map resultMap = new HashMap<String,Object>();
-		List<DevDataApp> list = devDataAppService.findDevDataAppList(devId, qsrq, zzrq);
+		List<DevDataApp> list = devDataAppService.findDevDataAppList(devId,"1",qsrq, zzrq);
 		//x轴数据】
 		if(null==list || list.size()==0){
 			return null;
@@ -97,7 +97,7 @@ public class LineDataServiceImpl  implements LineDataService {
 		
 		Map legendMap = new HashMap<String,Double>();
 		try {
-			List<Map> titleList = devDataService.getTitleList(devId,"", qsrq, zzrq);
+			List<Map> titleList = devDataService.getTitleList(devId,"1", qsrq, zzrq);
 			if(titleList.size()>0 && titleList !=null){
 				Map<String, Object> map = titleList.get(0);
 				legList.add(map.get("NameArray").toString());

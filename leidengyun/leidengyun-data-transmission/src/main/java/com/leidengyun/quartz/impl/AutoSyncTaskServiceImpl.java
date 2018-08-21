@@ -1,12 +1,12 @@
 package com.leidengyun.quartz.impl;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,15 +14,15 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.leidengyun.common.StringUtis;
 import com.leidengyun.dao.TableTaskJdbcDao;
+import com.leidengyun.mvc.util.StringUtils;
 import com.leidengyun.quartz.IAutoSyncTaskService;
 import com.leidengyun.socket.util.JdbcUtis;
 import com.mysql.jdbc.Connection;
+
 
 @Service("autoSyncDevServiceImpl")
 public class AutoSyncTaskServiceImpl implements IAutoSyncTaskService {
@@ -91,6 +91,7 @@ public class AutoSyncTaskServiceImpl implements IAutoSyncTaskService {
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private List<Map> getTitleList(Integer devId,String type, String qsrq, String zzrq) {
 		// TODO Auto-generated method stub
 		//数据库连接
@@ -126,8 +127,8 @@ public class AutoSyncTaskServiceImpl implements IAutoSyncTaskService {
 			}
 			StringBuilder rs = new  StringBuilder();
 			StringBuilder rs1 = new  StringBuilder();
-			for (Iterator iterator = list.iterator(); iterator.hasNext();) {
-				Map<String, Object> map2 = (Map<String, Object>) iterator.next();
+			for (Iterator<Map<String, Object>> iterator = list.iterator(); iterator.hasNext();) {
+				Map<String, Object> map2 = iterator.next();
 
 				NameArray=map2.get("devNameArray") == null ? "" :
 						map2.get("devNameArray").toString();
@@ -152,10 +153,10 @@ public class AutoSyncTaskServiceImpl implements IAutoSyncTaskService {
 				String TAR=(String)map.get("TypeArray");
 				String[] Narray =NAR.split("@");
 				String[] Tarray = TAR.split("@");
-				List _nList = Arrays.asList(Narray);
-				List _tList = Arrays.asList(Tarray);
-				List nList = new ArrayList(_nList);
-				List tList = new ArrayList(_tList);
+				List<String> _nList = Arrays.asList(Narray);
+				List<String> _tList = Arrays.asList(Tarray);
+				List<String> nList = new ArrayList<String>(_nList);
+				List<String> tList = new ArrayList<String>(_tList);
 				StringUtis.removeDuplicate(nList);
 				StringUtis.removeDuplicate(tList);
 				StringBuilder nN = new  StringBuilder();
@@ -200,7 +201,24 @@ public class AutoSyncTaskServiceImpl implements IAutoSyncTaskService {
 				reslList.add(rsmap);
 			}
 		}
+		
+		
+		Collections.sort(reslList, new Comparator<Map>() {
+			public int compare(Map o1, Map o2) {
+				String mm = o1.get("TypeArray").toString().split("-")[0];
+				String mm1 = o2.get("TypeArray").toString().toString().split("-")[0];
+
+				Integer num1;
+				Integer num2;
+				num1 = Integer.valueOf(mm);// name1是从你list里面拿出来的一个
+				num2 = Integer.valueOf(mm1); // name1是从你list里面拿出来的第二个name
+				return num1.compareTo(num2);
+			}
+		});
 		return reslList;
 	}
 	
+	public static void main(String[] args){
+		new AutoSyncTaskServiceImpl().syncSysDeviceDataTask();
+	}
 }

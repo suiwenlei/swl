@@ -3,17 +3,18 @@ package com.leidengyun.sjptn.model;
 public class TitleModel {
 	private String field;
 	private String title;
+	private String typeArray;
 	private Integer width;
 	private Boolean hide;
 	private Boolean mobileHide;
 	
 	
 
-
-	public TitleModel(String field, String title, Integer width, Boolean hide, Boolean mobileHide) {
+	public TitleModel(String field, String title, String typeArray, Integer width, Boolean hide, Boolean mobileHide) {
 		super();
 		this.field = field;
 		this.title = title;
+		this.typeArray = typeArray;
 		this.width = width;
 		this.hide = hide;
 		this.mobileHide = mobileHide;
@@ -63,4 +64,13 @@ public class TitleModel {
 	public void setMobileHide(Boolean mobileHide) {
 		this.mobileHide = mobileHide;
 	}
+
+	public String getTypeArray() {
+		return typeArray;
+	}
+
+	public void setTypeArray(String typeArray) {
+		this.typeArray = typeArray;
+	}
+	
 }

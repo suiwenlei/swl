@@ -73,8 +73,9 @@ public class DevDataAppServiceImpl extends ServiceImpl<DevDataAppDao, DevDataApp
 	}
 
 	@Override
-	public List<DevDataApp> findDevDataAppList(Integer devId, String qsrq, String zzrq) {
+	public List<DevDataApp> findDevDataAppList(Integer devId,String type,String qsrq, String zzrq) {
 		// TODO Auto-generated method stub
-		return dao.findDevDataAppList(devId, qsrq, zzrq);
+		String condition= devDataService.getLastCondition(Integer.valueOf(devId));
+		return dao.findDevDataAppList(devId,type,condition,qsrq, zzrq);
 	}
 }
