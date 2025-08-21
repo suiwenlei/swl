@@ -1,0 +1,18 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "精选",
+        "navigationBarBackgroundColor": "#ff3e3e",
+        "navigationBarTextStyle": "white",
+        "enablePullDownRefresh": true
+      }
+    }
+  ],
+  "globalStyle": {
+    "backgroundColor": "#f6f6f6",
+    "backgroundTextStyle": "dark"
+  }
+}
+
