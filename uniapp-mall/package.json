@@ -1,0 +1,18 @@
+{
+  "name": "uniapp-mall",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:h5": "vite",
+    "build:h5": "vite build",
+    "preview:h5": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@dcloudio/vite-plugin-uni": "^4.0.0",
+    "vite": "^5.4.0"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "uniapp-mall",
+  "appid": "__UNI__MALLDEMO__",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "uniStatistics": {
+    "enable": false
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false
+    }
+  }
+}
+
