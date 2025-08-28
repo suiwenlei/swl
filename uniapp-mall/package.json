@@ -4,9 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev": "npm run dev:h5",
+    "build": "npm run build:h5",
+    "preview": "npm run preview:h5",
     "dev:h5": "vite",
     "build:h5": "vite build",
     "preview:h5": "vite preview"
+  },
+  "engines": {
+    "node": ">=20.18.3 <21"
   },
   "dependencies": {
     "vue": "^3.4.0"
