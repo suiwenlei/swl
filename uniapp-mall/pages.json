@@ -8,11 +8,28 @@
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true
       }
+    },
+    {
+      "path": "pages/service/service",
+      "style": {
+        "navigationBarTitleText": "智能客服",
+        "navigationBarBackgroundColor": "#1a73e8",
+        "navigationBarTextStyle": "white"
+      }
     }
   ],
   "globalStyle": {
     "backgroundColor": "#f6f6f6",
     "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#1a73e8",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/service/service", "text": "智能客服" }
+    ]
   }
 }
 
