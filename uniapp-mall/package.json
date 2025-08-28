@@ -3,16 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "=20.18.3"
+  },
   "scripts": {
-    "dev:h5": "vite",
-    "build:h5": "vite build",
-    "preview:h5": "vite preview"
+    "dev:h5": "UNI_INPUT_DIR=. vite",
+    "build:h5": "UNI_INPUT_DIR=. vite build",
+    "preview:h5": "UNI_INPUT_DIR=. vite preview"
   },
   "dependencies": {
     "vue": "^3.4.0"
   },
   "devDependencies": {
-    "@dcloudio/vite-plugin-uni": "^4.0.0",
-    "vite": "^5.4.0"
+    "@dcloudio/vite-plugin-uni": "vue3",
+    "vite": "5.2.8"
   }
 }
